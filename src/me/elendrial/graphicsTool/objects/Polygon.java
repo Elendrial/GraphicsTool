@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 
+import me.elendrial.graphicsTool.helpers.PolygonHelper;
 import me.elendrial.graphicsTool.interfaces.PhysicsObject;
 
 public class Polygon implements PhysicsObject{
@@ -23,6 +24,10 @@ public class Polygon implements PhysicsObject{
 		this(p.x, p.y);
 	}
 
+	public Polygon setVertices(ArrayList<Double> d) {
+		vertices = d;
+		return this;
+	}
 	
 	@Override
 	public void render(Graphics g) {
@@ -41,7 +46,7 @@ public class Polygon implements PhysicsObject{
 
 	@Override
 	public Double getCenter() {
-		return null;
+		return PolygonHelper.getCentroid(this);
 	}
 	
 }
