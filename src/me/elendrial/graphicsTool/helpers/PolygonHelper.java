@@ -14,7 +14,7 @@ public class PolygonHelper {
 	// But, current idea is that anything fairly trivial (eg translation) should go in Polygon, whereas anything longer than 2-3 lines should go in here.
 	
 	public static Polygon rotate(Polygon p, double radians) {
-		return p.setVertices(rotate(p.vertices, p.getCenter(), radians));
+		return p.setVertices(rotate(p.vertices, p.getCentroid(), radians));
 	}
 	
 	public static ArrayList<Double> rotate(ArrayList<Double> vertices, Double point, double radians){
@@ -69,11 +69,14 @@ public class PolygonHelper {
 			else l2 = new Line(p.vertices.get(i), p.vertices.get(i+1));
 			
 			Double inter = l.intersectionOf(l2);
-			if(inter != null) 
+			if(inter != null) {
 				intersections.put(i, inter);
-			
+			}
 		}
 		
+		if(intersections.size() < 2) return null;
+		
+		for(int i : intersections.keySet()) System.out.println(i + ":" + intersections.get(i));
 		
 		// Use those to separate out two groups of vertices
 		ArrayList<Double> a = new ArrayList<>(), b = new ArrayList<>();

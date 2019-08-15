@@ -7,7 +7,7 @@ import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 
 abstract public class Scene {
 	
-	public ArrayList<GraphicsObject> objects;
+	public ArrayList<GraphicsObject> objects = new ArrayList<>();
 	
 	abstract public void load();
 	abstract public void update();

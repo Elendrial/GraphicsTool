@@ -85,8 +85,20 @@ public class LineHelper {
 		double pgrad = (p1.getY()-p2.getY())/(p1.getX()-p2.getX());
 		double qgrad = (q1.getY()-q2.getY())/(q1.getX()-q2.getX());
 		
-		double xint = (pgrad * p1.x - qgrad * q1.x + q1.y - p1.y)/(pgrad - qgrad);
-		double yint = pgrad * (xint - p1.x) + p1.y;
+		double xint, yint;
+		// TODO
+		if(java.lang.Double.isInfinite(pgrad)) { // do not have to check if qgrad is infinite, it can't be if they intersect
+			xint = 0;
+			yint = 0;
+		}
+		else if(java.lang.Double.isInfinite(qgrad)) { // same as above, but flipped.
+			xint = 0;
+			yint = 0;
+		}
+		else {
+			xint = (pgrad * p1.x - qgrad * q1.x + q1.y - p1.y)/(pgrad - qgrad);
+			yint = pgrad * (xint - p1.x) + p1.y;
+		}
 		
 		return new Double(xint, yint);
 	}
@@ -141,6 +153,17 @@ public class LineHelper {
 		// NB: this is against vertically downwards
 		if(a.y-b.y == 0) return 0;
 		return 180 - (Math.atan((a.x-b.x)/(a.y-b.y)) * (180/Math.PI));
+	}
+	
+	public static double xAt(Line l, double y) {
+		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
+		
+		return 0;
+	}
+	
+	public static double yAt(Line l, double x) {
+		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
+		return m * x + (l.a.y - m * l.a.x);
 	}
 	
 }

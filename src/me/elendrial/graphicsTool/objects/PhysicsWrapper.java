@@ -23,7 +23,7 @@ public class PhysicsWrapper<T extends PhysicsObject> implements GraphicsObject {
 	@Override
 	public void update() {
 		obj.translate(velocity);
-		obj.rotate(obj.getCenter(), rotationalVelocity);
+		obj.rotate(obj.getCentroid(), rotationalVelocity);
 		obj.update();
 	}
 	
