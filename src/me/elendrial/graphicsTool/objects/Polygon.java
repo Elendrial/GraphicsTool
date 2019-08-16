@@ -2,7 +2,7 @@ package me.elendrial.graphicsTool.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.geom.Point2D.Double;
+import me.elendrial.graphicsTool.Vector;
 import java.util.ArrayList;
 
 import me.elendrial.graphicsTool.helpers.PolygonHelper;
@@ -10,29 +10,30 @@ import me.elendrial.graphicsTool.interfaces.PhysicsObject;
 
 public class Polygon implements PhysicsObject{
 	
-	public Double position;
-	public ArrayList<Double> vertices = new ArrayList<>();
+	public Vector position;
+	public ArrayList<Vector> vertices = new ArrayList<>();
+	public Color c = Color.WHITE;
 	
 	public Polygon(double x, double y) {
-		position = new Double(x, y);
+		position = new Vector(x, y);
 	}
 	
 	public Polygon() {
 		this(0,0);
 	}
 	
-	public Polygon(Double p) {
+	public Polygon(Vector p) {
 		this(p.x, p.y);
 	}
 	
-	public Polygon setVertices(ArrayList<Double> d) {
+	public Polygon setVertices(ArrayList<Vector> d) {
 		vertices = d;
 		return this;
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.WHITE);
+		g.setColor(c);
 		for(int i = 0; i < vertices.size()-1; i++) {
 			g.drawLine((int) vertices.get(i).x, (int) vertices.get(i).y, (int) vertices.get(i+1).x, (int) vertices.get(i+1).y);
 		}
@@ -40,17 +41,17 @@ public class Polygon implements PhysicsObject{
 	}
 	
 	@Override
-	public void translate(Double amount) {
+	public void translate(Vector amount) {
 		
 	}
 	
 	@Override
-	public void rotate(Double about, double radians) {
+	public void rotate(Vector about, double radians) {
 		
 	}
 	
 	@Override
-	public Double getCentroid() {
+	public Vector getCentroid() {
 		return PolygonHelper.getCentroid(this);
 	}
 	

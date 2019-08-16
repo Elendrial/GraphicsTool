@@ -1,11 +1,11 @@
 package me.elendrial.graphicsTool.interfaces;
 
-import java.awt.geom.Point2D.Double;
+import me.elendrial.graphicsTool.Vector;
 
 public interface PhysicsObject extends GraphicsObject{
 
-	public void translate(Double amount);
-	public void rotate(Double about, double radians);
-	public Double getCentroid();
+	public void translate(Vector amount);
+	public void rotate(Vector about, double radians);
+	public Vector getCentroid();
 	
 }

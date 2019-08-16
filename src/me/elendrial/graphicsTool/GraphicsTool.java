@@ -3,8 +3,8 @@ package me.elendrial.graphicsTool;
 import me.elendrial.graphicsTool.graphics.Window;
 import me.elendrial.graphicsTool.scenes.Scene;
 
-// NB: any angles are in radians here, as it makes it consistent with java's Math methods. "Double" will refer to "Point2D.Double" unless stated otherwise.
-// TO THINK ABOUT: maybe switch out Point2D.Double with custom 3 direction class? Maybe switch out for custom class with translate(), rotateAround() etc?
+// NB: any angles are in radians here, as it makes it consistent with java's Math methods.
+// TO THINK ABOUT: maybe switch out Vector with custom 3 direction class?
 public class GraphicsTool {
 
 	private static Scene loadedScene;

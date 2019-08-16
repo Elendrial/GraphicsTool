@@ -1,10 +1,10 @@
 package me.elendrial.graphicsTool.objects;
 
-import java.awt.geom.Point2D.Double;
+import me.elendrial.graphicsTool.Vector;
 
 public class RegularPolygon extends Polygon{
 	
-	public RegularPolygon(Double p, double length, int sides) {
+	public RegularPolygon(Vector p, double length, int sides) {
 		super(p);
 		
 	}

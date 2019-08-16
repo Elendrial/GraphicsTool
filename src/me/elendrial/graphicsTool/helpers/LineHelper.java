@@ -1,7 +1,7 @@
 package me.elendrial.graphicsTool.helpers;
 
 import java.awt.Point;
-import java.awt.geom.Point2D.Double;
+import me.elendrial.graphicsTool.Vector;
 
 import me.elendrial.graphicsTool.objects.Line;
 
@@ -11,7 +11,7 @@ public class LineHelper {
 
 	// Given three colinear points p, q, r, the function checks if
 	// point q lies on line segment 'pr'
-	public static boolean onSegment(Double p, Double q, Double r) {
+	public static boolean onSegment(Vector p, Vector q, Vector r) {
 		if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x) && q.y <= Math.max(p.y, r.y)
 				&& q.y >= Math.min(p.y, r.y))
 			return true;
@@ -24,7 +24,7 @@ public class LineHelper {
 	// 0 --> p, q and r are colinear
 	// 1 --> Clockwise
 	// 2 --> Counterclockwise
-	public static int orientation(Double p, Double q, Double r) {
+	public static int orientation(Vector p, Vector q, Vector r) {
 		// See https://www.geeksforgeeks.org/orientation-3-ordered-points/
 		// for details of below formula.
 		double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
@@ -37,7 +37,7 @@ public class LineHelper {
 
 	// The main function that returns true if line segment 'p1q1'
 	// and 'p2q2' intersect.
-	public static boolean doIntersect(Double p1, Double q1, Double p2, Double q2) {
+	public static boolean doIntersect(Vector p1, Vector q1, Vector p2, Vector q2) {
 		// Find the four orientations needed for general and
 		// special cases
 		int o1 = orientation(p1, q1, p2);
@@ -72,7 +72,7 @@ public class LineHelper {
 	// End of nabbed code
 	
 	public static boolean doIntersect(double xa1, double ya1, double xa2, double ya2, double xb1, double yb1, double xb2, double yb2) {
-		return doIntersect(new Double(xa1, ya1), new Double(xa2, ya2), new Double(xb1, yb1), new Double(xb2, yb2));
+		return doIntersect(new Vector(xa1, ya1), new Vector(xa2, ya2), new Vector(xb1, yb1), new Vector(xb2, yb2));
 	}
 	
 	public static boolean doIntersect(Line a, Line b){
@@ -81,17 +81,17 @@ public class LineHelper {
 	
 	
 	
-	public static Double getIntersection(Double p1, Double p2, Double q1, Double q2) {
+	public static Vector getIntersection(Vector p1, Vector p2, Vector q1, Vector q2) {
 		double pgrad = (p1.getY()-p2.getY())/(p1.getX()-p2.getX());
 		double qgrad = (q1.getY()-q2.getY())/(q1.getX()-q2.getX());
 		
 		double xint, yint;
 		// TODO
-		if(java.lang.Double.isInfinite(pgrad)) { // do not have to check if qgrad is infinite, it can't be if they intersect
+		if(Double.isInfinite(pgrad)) { // do not have to check if qgrad is infinite, it can't be if they intersect
 			xint = p1.x; // inf grad = straight up, any point at same x
 			yint = yAt(new Line(q1, q2), p1.x);
 		}
-		else if(java.lang.Double.isInfinite(qgrad)) { // same as above, but flipped.
+		else if(Double.isInfinite(qgrad)) { // same as above, but flipped.
 			xint = q1.x;
 			yint = yAt(new Line(p1, p2), q1.x);
 		}
@@ -100,34 +100,34 @@ public class LineHelper {
 			yint = pgrad * (xint - p1.x) + p1.y;
 		}
 		
-		return new Double(xint, yint);
+		return new Vector(xint, yint);
 	}
 	
-	public static Double getIntersection(Line a, Line b){
+	public static Vector getIntersection(Line a, Line b){
 		return getIntersection(a.a, a.b, b.a, b.b);
 	}
 	
 	
 	
-	public static Double getOppositeEnd(Double start, double angle, double length) {
-		return new Double(Math.sin(angle * Math.PI /180D) * length + start.x, Math.cos(angle * Math.PI /180D) * length + start.y);
+	public static Vector getOppositeEnd(Vector start, double angle, double length) {
+		return new Vector(Math.sin(angle * Math.PI /180D) * length + start.x, Math.cos(angle * Math.PI /180D) * length + start.y);
 	}
 	
-	public static Double getOppositeEnd(double x, double y, double angle, double length) {
-		return getOppositeEnd(new Double(x,y), angle, length);
+	public static Vector getOppositeEnd(double x, double y, double angle, double length) {
+		return getOppositeEnd(new Vector(x,y), angle, length);
 	}
 	
-	public static Double getOppositeEnd(Point start, double y, double angle, double length) {
-		return getOppositeEnd(new Double(start.x , start.y), angle, length);
+	public static Vector getOppositeEnd(Point start, double y, double angle, double length) {
+		return getOppositeEnd(new Vector(start.x , start.y), angle, length);
 	}
 	
 	
-	public static double angleBetween(Double p1, Double p2, Double q1, Double q2) {
+	public static double angleBetween(Vector p1, Vector p2, Vector q1, Vector q2) {
 		return 180 - ((angleOfLine(p1, p2) - angleOfLine(q1, q2) + 180)%180);
 	}
 	
 	public static double angleBetween(Point p1, Point p2, Point q1, Point q2) {
-		return angleBetween(toDoublePoint(p1), toDoublePoint(p2), toDoublePoint(q1), toDoublePoint(q2));
+		return angleBetween(toVectorPoint(p1), toVectorPoint(p2), toVectorPoint(q1), toVectorPoint(q2));
 	}
 	
 	public static double angleBetween(Line a, Line b) {
@@ -140,23 +140,23 @@ public class LineHelper {
 	}
 	
 	
-	public static Double toDoublePoint(Point p){
-		return new Double(p.getX(), p.getY());
+	public static Vector toVectorPoint(Point p){
+		return new Vector(p.getX(), p.getY());
 	}
 	
-	public static Point toPoint(Double p){
+	public static Point toPoint(Vector p){
 		return new Point((int)p.getX(), (int)p.getY());
 	}
 	
 	
-	public static double angleOfLine(Double a, Double b) {
+	public static double angleOfLine(Vector a, Vector b) {
 		// NB: this is against vertically downwards
 		if(a.y-b.y == 0) return 0;
 		return 180 - (Math.atan((a.x-b.x)/(a.y-b.y)) * (180/Math.PI));
 	}
 	
 	public static double xAt(Line l, double y) {
-		// TODO: Double check thisw
+		// TODO: Vector check thisw
 		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
 		return (y / m) + l.a.x - (l.a.y / m);
 	}
