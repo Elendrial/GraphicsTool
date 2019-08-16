@@ -76,8 +76,6 @@ public class PolygonHelper {
 		
 		if(intersections.size() < 2) return null;
 		
-		for(int i : intersections.keySet()) System.out.println(i + ":" + intersections.get(i));
-		
 		// Use those to separate out two groups of vertices
 		ArrayList<Vector> a = new ArrayList<>(), b = new ArrayList<>();
 		

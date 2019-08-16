@@ -29,8 +29,6 @@ public class PolygonSplitter extends Scene{
 		vertices.add(new Vector(300, 700));
 		p.setVertices(vertices);
 		objects.add(p);
-		
-		System.out.println("loaded");
 	}
 
 	@Override
@@ -48,8 +46,10 @@ public class PolygonSplitter extends Scene{
 		}while(v2 == v1);
 		
 		Line split = new Line(v1, v2);
-		split.translate(new Vector(rand.nextDouble() * 200D - 100, rand.nextDouble() * 200D - 100));
-		split.rotate(split.a, (rand.nextDouble() - 0.5D));
+		double length = split.getLength() + 0;  // the "+ n" biases larger polygons being successfully split
+		
+		split.translate(new Vector(rand.nextDouble() * length - length/2, rand.nextDouble() * (length) - length/2));
+		split.rotate(split.a, (rand.nextDouble() - 0.5D) * Math.PI);
 		split.extendFromMidpoint(100);
 		
 		//Polygon p = (Polygon) objects.get(0);
