@@ -88,12 +88,12 @@ public class LineHelper {
 		double xint, yint;
 		// TODO
 		if(java.lang.Double.isInfinite(pgrad)) { // do not have to check if qgrad is infinite, it can't be if they intersect
-			xint = 0;
-			yint = 0;
+			xint = p1.x; // inf grad = straight up, any point at same x
+			yint = yAt(new Line(q1, q2), p1.x);
 		}
 		else if(java.lang.Double.isInfinite(qgrad)) { // same as above, but flipped.
-			xint = 0;
-			yint = 0;
+			xint = q1.x;
+			yint = yAt(new Line(p1, p2), q1.x);
 		}
 		else {
 			xint = (pgrad * p1.x - qgrad * q1.x + q1.y - p1.y)/(pgrad - qgrad);
@@ -156,9 +156,9 @@ public class LineHelper {
 	}
 	
 	public static double xAt(Line l, double y) {
+		// TODO: Double check thisw
 		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
-		
-		return 0;
+		return (y / m) + l.a.x - (l.a.y / m);
 	}
 	
 	public static double yAt(Line l, double x) {

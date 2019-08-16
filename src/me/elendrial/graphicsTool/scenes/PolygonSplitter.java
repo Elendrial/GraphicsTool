@@ -25,9 +25,6 @@ public class PolygonSplitter extends Scene{
 		p.setVertices(vertices);
 		objects.add(p);
 		
-		
-		objects.add(new Line(100, 450, 1200, 450));
-		
 		System.out.println("loaded");
 	}
 
@@ -37,7 +34,7 @@ public class PolygonSplitter extends Scene{
 		// Maybe explode the polygons a tad? ie: move them apart
 		
 		// Can guarantee here that only polygons in objects
-	/*	Polygon p = (Polygon) objects.get(rand.nextInt(objects.size()));
+		Polygon p = (Polygon) objects.get(rand.nextInt(objects.size()));
 		Double v1 = p.vertices.get(rand.nextInt(p.vertices.size()));
 		Double v2;
 		
@@ -49,9 +46,9 @@ public class PolygonSplitter extends Scene{
 		split.translate(new Double(rand.nextDouble() * 10D, rand.nextDouble() * 10D));
 		split.rotate(split.a, rand.nextDouble() - 0.5D);
 		split.extendFromMidpoint(100);
-		*/
-		Polygon p = (Polygon) objects.get(0);
-		Line split = (Line) objects.get(1);
+		
+		//Polygon p = (Polygon) objects.get(0);
+		//Line split = (Line) objects.get(1);
 		
 		Polygon q = PolygonHelper.split(p, split);
 		if(q != null) objects.add(q);
