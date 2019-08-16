@@ -1,16 +1,21 @@
 package me.elendrial.graphicsTool.scenes;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import me.elendrial.graphicsTool.Vector;
 import java.util.ArrayList;
 import java.util.Random;
 
 import me.elendrial.graphicsTool.helpers.PolygonHelper;
+import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
 
 public class PolygonSplitter extends Scene{
 
 	Random rand = new Random();
+	ArrayList<GraphicsObject> lines = new ArrayList<>();
+	float f = 0;
 	
 	@Override
 	public void load() {
@@ -43,8 +48,8 @@ public class PolygonSplitter extends Scene{
 		}while(v2 == v1);
 		
 		Line split = new Line(v1, v2);
-		split.translate(new Vector(rand.nextDouble() * 10D, rand.nextDouble() * 10D));
-		split.rotate(split.a, (rand.nextDouble() - 0.5D)*2);
+		split.translate(new Vector(rand.nextDouble() * 200D - 100, rand.nextDouble() * 200D - 100));
+		split.rotate(split.a, (rand.nextDouble() - 0.5D));
 		split.extendFromMidpoint(100);
 		
 		//Polygon p = (Polygon) objects.get(0);
@@ -52,6 +57,17 @@ public class PolygonSplitter extends Scene{
 		
 		Polygon q = PolygonHelper.split(p, split);
 		if(q != null) objects.add(q);
+		
+		lines.add(split);
+		
+		if(q != null) f += 0.005f;
+		//split.c = Color.getHSBColor(f, 1f, 1f);
+		if(q != null) q.c = Color.getHSBColor(f, 1f, 1f);
+	}
+	
+	public void render(Graphics g) {
+		super.render(g);
+		//obj.forEach(o -> o.render(g));
 	}
 
 }

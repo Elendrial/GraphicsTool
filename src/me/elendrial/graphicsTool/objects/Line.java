@@ -15,8 +15,8 @@ public class Line implements PhysicsObject{
 	
 	public Line(Vector a, Vector b) {
 		super();
-		this.a = a;
-		this.b = b;
+		this.a = a.getLocation();
+		this.b = b.getLocation();
 	}
 	
 	public Line(double x1, double y1, double x2, double y2) {
@@ -67,7 +67,8 @@ public class Line implements PhysicsObject{
 
 	@Override
 	public void rotate(Vector about, double radians) {
-		
+		a.rotateRad(radians, about);
+		b.rotateRad(radians, about);
 	}
 
 	@Override
