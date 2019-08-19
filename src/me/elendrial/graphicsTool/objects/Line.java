@@ -13,8 +13,10 @@ public class Line implements PhysicsObject{
 	public Vector b;
 	public Color c = Color.WHITE;
 	
+	public Line() {super();}
+	
 	public Line(Vector a, Vector b) {
-		super();
+		this();
 		this.a = a.getLocation();
 		this.b = b.getLocation();
 	}
@@ -75,6 +77,14 @@ public class Line implements PhysicsObject{
 	
 	public String toString() {
 		return "a[" + a.x + "," + a.y + "], b[" + b.x + "," + b.y + "]";
+	}
+	
+	// TODO: Come up with better name.
+	public static Line newLineDontClone(Vector a, Vector b) {
+		Line l = new Line();
+		l.a = a;
+		l.b = b;
+		return l;
 	}
 	
 }
