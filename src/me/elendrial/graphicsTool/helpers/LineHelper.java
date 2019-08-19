@@ -1,12 +1,18 @@
 package me.elendrial.graphicsTool.helpers;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import me.elendrial.graphicsTool.Vector;
 
 import me.elendrial.graphicsTool.objects.Line;
 
 public class LineHelper {
-	// Code mostly nabbed from
+	
+	// Intersection code nabbed from
 	// https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 
 	// Given three colinear points p, q, r, the function checks if
@@ -107,6 +113,26 @@ public class LineHelper {
 		return getIntersection(a.a, a.b, b.a, b.b);
 	}
 	
+	public static ArrayList<Vector> getIntersections(Line a, Line... lines){
+		ArrayList<Vector> vecs = new ArrayList<>();
+		
+		for(Line l : lines)	
+			if(doIntersect(a,l)) 
+				vecs.add(getIntersection(a,l));
+		
+		return vecs;
+	}
+	
+	public static HashMap<Line, Vector> getIntersections(Line a, ArrayList<Line> lines){
+		HashMap<Line, Vector> vecs = new HashMap<>();
+		
+		for(Line l : lines)	
+			if(doIntersect(a,l)) 
+				vecs.put(l, getIntersection(a,l));
+		
+		return vecs;
+	}
+	
 	
 	
 	public static Vector getOppositeEnd(Vector start, double angle, double length) {
@@ -164,6 +190,27 @@ public class LineHelper {
 	public static double yAt(Line l, double x) {
 		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
 		return m * x + (l.a.y - m * l.a.x);
+	}
+	
+	public static ArrayList<Vector> orderVectorsAlongLine(ArrayList<Vector> vecs, Line l){
+		vecs.sort((v1,v2) ->{
+			return v1.distance(l.a) > v2.distance(l.a) ? 1 : -1;
+		});
+		
+		return vecs;
+	}
+	
+	public static <K> LinkedHashMap<K, Vector> orderVectorsAlongLine(HashMap<K, Vector> vecs, Line l){
+		ArrayList<Vector> vs = new ArrayList<>();
+		vs.addAll(vecs.values());
+		orderVectorsAlongLine(vs, l);
+		
+		LinkedHashMap<K, Vector> temp = new LinkedHashMap<>();
+		for(Vector v : vs) {
+			temp.put(vecs.entrySet().stream().filter(e -> e.getValue() == v).findFirst().get().getKey(), v);
+		}
+		
+		return temp;
 	}
 	
 }

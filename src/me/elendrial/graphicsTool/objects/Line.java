@@ -75,8 +75,22 @@ public class Line implements PhysicsObject{
 		return new Vector((a.x + b.x)/2D, (a.y+b.y)/2D);
 	}
 	
+	public boolean hasEndPoint(Vector v) {
+		return v.equals(a) || v.equals(b);
+	}
+	
+	public Vector getOtherEnd(Vector v) {
+		return v.equals(a) ? a : v.equals(b) ? b : null;
+	}
+	
 	public String toString() {
 		return "a[" + a.x + "," + a.y + "], b[" + b.x + "," + b.y + "]";
+	}
+	
+	public boolean equals(Object o) {
+		if(!(o instanceof Line)) return false;
+		Line l = (Line) o;
+		return l.a.equals(a) && l.b.equals(b);
 	}
 	
 	// TODO: Come up with better name.

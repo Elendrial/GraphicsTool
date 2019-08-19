@@ -7,8 +7,8 @@ import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 
 public class ConnectionMap implements GraphicsObject {
 	
-	ArrayList<Vector> nodes = new ArrayList<>();
-	ArrayList<Line> edges = new ArrayList<>();
+	public ArrayList<Vector> nodes = new ArrayList<>();
+	public ArrayList<Line> edges = new ArrayList<>();
 	
 	public void addNode(Vector v) {
 		nodes.add(v);
@@ -49,11 +49,41 @@ public class ConnectionMap implements GraphicsObject {
 			l.b = nodes.get(nodes.indexOf(l.b));
 		}
 		
-		edges.add(l);
+		if(!edges.contains(l))
+			edges.add(l);
+	}
+	
+	public void lenientAddEdge(Vector v1, Vector v2) {
+		if(!nodes.contains(v1)) {
+			addNode(v1);
+		}
+		else if(v1 != nodes.get(nodes.indexOf(v1))) {
+			v1 = nodes.get(nodes.indexOf(v1));
+		}
+		
+		if(!nodes.contains(v2)) {
+			addNode(v2);
+		}
+		else if(v2 != nodes.get(nodes.indexOf(v2))) {
+			v2 = nodes.get(nodes.indexOf(v2));
+		}
+		
+		Line l = Line.newLineDontClone(v1,v2);
+		if(!edges.contains(l))
+			edges.add(l);
 	}
 	
 	public void addEdges(Line... l) {
 		for(Line line : l) addEdge(line);
+	}
+	
+	public ArrayList<Line> getEdgesFrom(Vector v) {
+		ArrayList<Line> lines = new ArrayList<>();
+		for(Line l : edges) 
+			if(l.hasEndPoint(v)) 
+				lines.add(l);
+		
+		return lines;
 	}
 	
 	@Override
