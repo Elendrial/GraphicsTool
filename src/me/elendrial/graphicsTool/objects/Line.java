@@ -80,7 +80,7 @@ public class Line implements PhysicsObject{
 	}
 	
 	public Vector getOtherEnd(Vector v) {
-		return v.equals(a) ? a : v.equals(b) ? b : null;
+		return v.equals(a) ? b : v.equals(b) ? a : null;
 	}
 	
 	public String toString() {

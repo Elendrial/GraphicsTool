@@ -52,9 +52,6 @@ public class PolygonSplitter extends Scene{
 		split.rotate(split.a, (rand.nextDouble() - 0.5D) * Math.PI);
 		split.extendFromMidpoint(100);
 		
-		//Polygon p = (Polygon) objects.get(0);
-		//Line split = (Line) objects.get(1);
-		
 		Polygon q = PolygonHelper.split(p, split);
 		if(q != null) objects.add(q);
 		

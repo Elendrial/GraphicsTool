@@ -11,6 +11,7 @@ public class ConnectionMap implements GraphicsObject {
 	public ArrayList<Line> edges = new ArrayList<>();
 	
 	public void addNode(Vector v) {
+		if(nodes.contains(v)) return;
 		nodes.add(v);
 	}
 	

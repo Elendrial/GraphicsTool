@@ -15,6 +15,8 @@ public class GraphicsTool {
 		w.createDisplay();
 		w.start();
 		
+		Settings.startingScene.width = w.width;
+		Settings.startingScene.height = w.height;
 		loadScene(Settings.startingScene);
 		
 		renderScene();
@@ -35,6 +37,8 @@ public class GraphicsTool {
 	public static void renderScene() {
 		w.render();
 		wait(100);
+		w.render();
+		wait(1000);
 		while(running) {
 			w.render();
 			wait(Settings.updateDelay);
