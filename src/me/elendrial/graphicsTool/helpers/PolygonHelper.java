@@ -105,4 +105,25 @@ public class PolygonHelper {
 		return other;
 	}
 	
+	public static ArrayList<Line> decompose(Polygon p){
+		ArrayList<Line> lines = new ArrayList<>();
+		
+		for(int i = 0; i < p.vertices.size() -1; i++) {
+			lines.add(new Line(p.vertices.get(i), p.vertices.get(i+1)));
+		}
+		lines.add(new Line(p.vertices.get(p.vertices.size()-1), p.vertices.get(0)));
+		
+		return lines;
+	}
+	
+	public static ArrayList<Line> decompose(ArrayList<Polygon> ps){
+		ArrayList<Line> lines = new ArrayList<>();
+		
+		for(Polygon p : ps) {
+			lines.addAll(decompose(p));
+		}
+		
+		return lines;
+	}
+	
 }

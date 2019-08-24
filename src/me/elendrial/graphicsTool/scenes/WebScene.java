@@ -125,7 +125,7 @@ public class WebScene extends Scene{
 			}
 			
 			for(Vector v : changes.keySet()) {
-				v.translate(changes.get(v));
+				if(changes.get(v).isValid()) v.translate(changes.get(v));
 			}
 		}
 		

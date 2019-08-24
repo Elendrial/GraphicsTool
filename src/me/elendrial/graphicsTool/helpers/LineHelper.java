@@ -211,4 +211,16 @@ public class LineHelper {
 		return temp;
 	}
 	
+	public static ArrayList<Line> removeDuplicates(ArrayList<Line> ls){
+		ArrayList<Line> toremove = new ArrayList<>();
+		for(int i = 0; i < ls.size(); i++) {
+			for(int j = i; j < ls.size(); j++) {
+				if(ls.get(i).equals(ls.get(j))) toremove.add(ls.get(i));
+			}
+		}
+		
+		ls.removeAll(toremove);
+		return ls;
+	}
+	
 }

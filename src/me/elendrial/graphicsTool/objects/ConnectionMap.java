@@ -87,6 +87,14 @@ public class ConnectionMap implements GraphicsObject {
 		return lines;
 	}
 	
+	public void translate(Vector v) {
+		for(Vector v2 : nodes) v.translate(v2);
+	}
+	
+	public void translate(double x, double y) {
+		for(Vector v : nodes) v.translate(x, y);
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		for(Line l : edges) l.render(g);
