@@ -57,7 +57,7 @@ public class PolygonHelper {
 		return new Vector(Cx, Cy);
 	}
 	
-	public static Polygon split(Polygon p, Line l) {
+	public static Polygon split(Polygon p, Line l, boolean joinPolygons) { // joinPolygons determines whether the polygons share vector objects
 		// <index of vertex at start of line, position of intersection>
 		HashMap<Integer, Vector> intersections = new HashMap<>();
 		
