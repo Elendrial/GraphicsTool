@@ -16,18 +16,28 @@ public class PolygonSplitAndShift extends Scene{
 	
 	Random rand = new Random();
 	ArrayList<GraphicsObject> lines = new ArrayList<>();
-	float f = 0;
+	float f = 0f;
 	float maxSize;
 	
 	@Override
 	public void load() {
 		Polygon p = new Polygon();
-		p.position = new Vector(700, 450);
+		p.position = new Vector(this.width/2, this.height/2);
 		ArrayList<Vector> vertices = new ArrayList<>();
-		vertices.add(new Vector(300, 200));
+		
+		// Rectangle
+		/*vertices.add(new Vector(300, 200));
 		vertices.add(new Vector(1100, 200));
 		vertices.add(new Vector(1100, 700));
-		vertices.add(new Vector(300, 700));
+		vertices.add(new Vector(300, 700));*/
+		
+		// regular n-sided shape
+		int n = 6;
+		int radius = 400;
+		for(int i = 0; i < n; i++) {
+			vertices.add(p.position.copy().translate(radius * Math.sin(i * 2f * Math.PI/(float) n), radius * Math.cos(i * 2f * Math.PI/(float) n)));
+		}
+		
 		p.setVertices(vertices);
 		objects.add(p);
 		p.c = Color.BLACK;
@@ -36,8 +46,7 @@ public class PolygonSplitAndShift extends Scene{
 
 	@Override
 	public void update() {
-		// Split a random polygon with a random line.
-		// Maybe explode the polygons a tad? ie: move them apart
+		// Choose Polygon, here it's random.
 		
 		// Can guarantee here that only polygons in objects
 		Polygon p = (Polygon) objects.get(rand.nextInt(objects.size()));
@@ -61,9 +70,14 @@ public class PolygonSplitAndShift extends Scene{
 		lines.add(split);
 		
 		if(q != null) {
-			double relativesize = PolygonHelper.areaOf(q)/maxSize;
-			f = relativesize < 0.005 ? 0.5f : relativesize < 0.04 ? 0.4f : relativesize < 0.1 ? 0.3f : relativesize < 0.2 ? 0.2f : relativesize < 0.4 ? 0.1f : 0;
-			q.c = Color.getHSBColor(1-f, 1f, 1f);
+		//	float relativesize = (float) Math.abs(PolygonHelper.areaOf(q)/maxSize);
+		//	q.c = Color.getHSBColor(0.5f+relativesize/1.75f, 1f-relativesize/2f, 1f-relativesize/2f);
+			
+		//	relativesize = (float) Math.abs(PolygonHelper.areaOf(p)/maxSize);
+		//	p.c = Color.getHSBColor(0.5f+relativesize/1.75f, 1f-relativesize/2f, 1f-relativesize/2f);
+			
+			q.c = Color.getHSBColor((float) q.position.getY()/(float) this.height + (float) q.position.getX()/(float) this.width, 1f, 1f);
+			p.c = Color.getHSBColor((float) p.position.getY()/(float) this.height + (float) p.position.getX()/(float) this.width, 1f, 1f);
 			
 			// Move them opposite directions along the line
 			Vector toMove = split.a.translate(split.b.negated()).getUnitVector().scale(5);

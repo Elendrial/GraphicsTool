@@ -86,7 +86,7 @@ public class PolygonHelper {
 			
 			if(intersections.containsKey(i)) {
 				toAddTo.add(intersections.get(i));
-				(side ? b : a).add(intersections.get(i));
+				(side ? b : a).add(joinPolygons ? intersections.get(i) : intersections.get(i).copy());
 				side = !side;
 			}
 		}
@@ -103,6 +103,10 @@ public class PolygonHelper {
 		other.vertices = b;
 		
 		return other;
+	}
+	
+	public static Polygon split(Polygon p, Line l) {
+		return split(p,l,false);
 	}
 	
 	public static ArrayList<Line> decompose(Polygon p){
@@ -124,6 +128,10 @@ public class PolygonHelper {
 		}
 		
 		return lines;
+	}
+	
+	public static boolean selfIntersects(Polygon p) {
+		return false;
 	}
 	
 	public static double areaOf(Polygon p) {

@@ -111,7 +111,7 @@ public class Vector {
 	/** Essentially a clone method.
 	 *  
 	 *  @return a copy of this vector. */
-	public Vector getLocation() {
+	public Vector copy() {
 		return new Vector(x, y);
 	}
 	

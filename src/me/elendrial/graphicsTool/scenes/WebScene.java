@@ -111,7 +111,7 @@ public class WebScene extends Scene{
 				Vector total = new Vector();
 				
 				for(Line line : edges) {
-					total.translate(line.getOtherEnd(v).getLocation().translate(v.negated()));
+					total.translate(line.getOtherEnd(v).copy().translate(v.negated()));
 				}
 				
 				// Optional changes which can be changed to almost anything

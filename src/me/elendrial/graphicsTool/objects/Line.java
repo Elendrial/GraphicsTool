@@ -17,8 +17,8 @@ public class Line implements PhysicsObject{
 	
 	public Line(Vector a, Vector b) {
 		this();
-		this.a = a.getLocation();
-		this.b = b.getLocation();
+		this.a = a.copy();
+		this.b = b.copy();
 	}
 	
 	public Line(double x1, double y1, double x2, double y2) {
