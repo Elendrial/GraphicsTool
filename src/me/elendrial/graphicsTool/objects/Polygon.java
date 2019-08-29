@@ -63,12 +63,14 @@ public class Polygon implements PhysicsObject{
 	
 	@Override
 	public void translate(Vector amount) {
-		
+		for(Vector v : vertices) v.translate(amount);
+		position.translate(amount);
 	}
 	
 	@Override
 	public void rotate(Vector about, double radians) {
-		
+		for(Vector v : vertices) v.rotateRad(radians, about);
+		position.rotateRad(radians, about);
 	}
 	
 	@Override

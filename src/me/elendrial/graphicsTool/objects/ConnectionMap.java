@@ -95,6 +95,10 @@ public class ConnectionMap implements GraphicsObject {
 		for(Vector v : nodes) v.translate(x, y);
 	}
 	
+	public void rotate(Vector about, double radians) {
+		for(Vector v : nodes) v.rotateRad(radians, about);
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		for(Line l : edges) l.render(g);

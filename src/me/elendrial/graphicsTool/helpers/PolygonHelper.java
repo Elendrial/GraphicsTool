@@ -126,4 +126,14 @@ public class PolygonHelper {
 		return lines;
 	}
 	
+	public static double areaOf(Polygon p) {
+		// TODO: replace with alg that handles self intersecting polygons.
+		double sum = 0;
+		for(int i = 0; i < p.vertices.size()-1; i++) {
+			sum += p.vertices.get(i).x * p.vertices.get(i+1).y - p.vertices.get(i).y * p.vertices.get(i+1).x;
+		}
+		
+		return Math.abs(sum/2d);
+	}
+	
 }
