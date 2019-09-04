@@ -90,7 +90,7 @@ public class Line implements PhysicsObject{
 	public boolean equals(Object o) {
 		if(!(o instanceof Line)) return false;
 		Line l = (Line) o;
-		return l.a.equals(a) && l.b.equals(b);
+		return (l.a.equals(a) && l.b.equals(b)) || (l.b.equals(a) && l.a.equals(b));
 	}
 	
 	// TODO: Come up with better name.

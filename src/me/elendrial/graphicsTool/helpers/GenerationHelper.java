@@ -2,6 +2,7 @@ package me.elendrial.graphicsTool.helpers;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.objects.Polygon;
@@ -10,14 +11,35 @@ public class GenerationHelper {
 
 	// TODO
 	
-	public static Polygon getRandomPolygon(int minSides, int maxSides, int minx, int maxx, int miny, int maxy) {
-		return new Polygon();
+	public static Polygon getRegularPolygon(int sides, int radius, int x, int y, double rotation) {
+		Polygon p = new Polygon(new Vector(x, y));
+		ArrayList<Vector> vertices = new ArrayList<>();
+		
+		for(int i = 0; i < sides; i++) {
+			vertices.add(p.position.copy().translate(radius * Math.sin(i * 2f * Math.PI/(float) sides), radius * Math.cos(i * 2f * Math.PI/(float) sides)));
+		}
+		
+		p.setVertices(vertices);
+		p.rotate(p.position, rotation);
+		
+		return p;
+	}
+	
+	public static Polygon getRandomRegularPolygon(int minSides, int maxSides, int minRadius, int maxRadius, int minx, int maxx, int miny, int maxy) {
+		Random r = new Random();
+		return getRegularPolygon(r.nextInt(maxSides - minSides) + minSides,
+								 r.nextInt(maxRadius - minRadius) + minRadius,
+								 r.nextInt(maxx - minx) + minx,
+								 r.nextInt(maxy - miny) + maxy,
+								 r.nextDouble() * Math.PI * 2);
 	}
 	
 	public static ArrayList<Polygon> getSmudge(){
+		return getSmudge(6, new Vector(375,50));
+	}
+	
+	public static ArrayList<Polygon> getSmudge(double scale, Vector offset){
 		ArrayList<Polygon> smudge = new ArrayList<Polygon>();
-		double scale = 6;
-		Vector offset = new Vector(375,50);
 		
 		Polygon a = new Polygon(0, 0);
 		a.addVertex(00, 96);

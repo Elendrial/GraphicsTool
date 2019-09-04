@@ -144,6 +144,13 @@ public class Vector {
 		return this;
 	}
 	
+	public boolean isWithin(Vector a, Vector b) {
+		double x1 = a.x < b.x ? a.x : b.x, x2 = a.x > b.x ? a.x : b.x;
+		double y1 = a.y < b.y ? a.y : b.y, y2 = a.y > b.y ? a.y : b.y;
+		
+		return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+	}
+	
 	public boolean isValid() {
 		return Double.isFinite(x) && Double.isFinite(y);
 	}
