@@ -6,6 +6,8 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import me.elendrial.graphicsTool.interaction.InputHandler;
+
 public class Window {
 
 	// Actual window

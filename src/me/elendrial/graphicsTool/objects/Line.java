@@ -2,6 +2,8 @@ package me.elendrial.graphicsTool.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import me.elendrial.graphicsTool.Settings;
 import me.elendrial.graphicsTool.Vector;
 
 import me.elendrial.graphicsTool.helpers.LineHelper;
@@ -53,7 +55,7 @@ public class Line implements PhysicsObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(c);
-		g.drawLine((int) a.x, (int) a.y, (int) b.x, (int) b.y);
+		if(Settings.renderLines) g.drawLine((int) a.x, (int) a.y, (int) b.x, (int) b.y);
 	}
 	
 	@Override

@@ -2,6 +2,8 @@ package me.elendrial.graphicsTool.objects;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import me.elendrial.graphicsTool.Settings;
 import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 
@@ -102,6 +104,7 @@ public class ConnectionMap implements GraphicsObject {
 	@Override
 	public void render(Graphics g) {
 		for(Line l : edges) l.render(g);
+		if(Settings.renderConnectionMapNodes) for(Vector v : nodes) g.drawRect(v.getIX()-1, v.getIY()-1, 2, 2);
 	}
 	
 }

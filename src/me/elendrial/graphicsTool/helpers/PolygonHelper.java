@@ -40,7 +40,7 @@ public class PolygonHelper {
 		// Cx = (1/6A) * SUM<0,n-1>( (X<i>+X<i+1>) * (X<i> * Y<i+1> - X<i+1> * Y<i>) )
 		// Cy = (1/6A) * SUM<0,n-1>( (Y<i>+Y<i+1>) * (X<i> * Y<i+1> - X<i+1> * Y<i>) )
 		// A = (1/2) * SUM<0, n-1>(X<i> * Y<i+1> - X<i+1> * Y<i>)
-		
+		/*
 		double Cx = 0, Cy = 0;
 		double A = 0;
 		for(int i = 0; i < vertices.size(); i++){
@@ -56,7 +56,8 @@ public class PolygonHelper {
 		Cx *= 1/(3 * A);
 		Cy *= 1/(3 * A);
 		
-		return new Vector(Cx, Cy);
+		return new Vector(Cx, Cy);*/
+		return new Vector(vertices.stream().mapToDouble(v -> v.getX()).sum()/vertices.size(), vertices.stream().mapToDouble(v -> v.getY()).sum()/vertices.size());
 	}
 	
 	// Warning: only splits once. With weirdly shaped polygons this may cause issues
@@ -96,9 +97,9 @@ public class PolygonHelper {
 		
 		// Use one to replace this, return the other
 		p.vertices = a;
-		p.position = getCentroid(a);
+		p.position = new Vector(a.stream().mapToDouble(v -> v.getX()).sum()/a.size(), a.stream().mapToDouble(v -> v.getY()).sum()/a.size());
 		
-		Polygon other = new Polygon(getCentroid(b));
+		Polygon other = new Polygon(new Vector(b.stream().mapToDouble(v -> v.getX()).sum()/b.size(), b.stream().mapToDouble(v -> v.getY()).sum()/b.size()));
 		other.vertices = b;
 		
 		return other;
@@ -263,7 +264,7 @@ public class PolygonHelper {
 		l.extendFromMidpoint(100);
 		
 		if(pneeds) {
-			Vector pcenter = p.getCentroid();
+			Vector pcenter = p.position.copy();
 			Polygon psplit = split(p, l, false);
 			if(psplit != null) {
 				polys.add(psplit);
@@ -274,7 +275,7 @@ public class PolygonHelper {
 		}
 		
 		if(qneeds) {
-			Vector qcenter = q.getCentroid();
+			Vector qcenter = q.position.copy();
 			Polygon qsplit = split(q, l, false);
 			if(qsplit != null) {
 				polys.add(qsplit);
