@@ -1,6 +1,8 @@
 package me.elendrial.graphicsTool.helpers;
 
 import me.elendrial.graphicsTool.Vector;
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -92,15 +94,11 @@ public class PolygonHelper {
 			}
 		}
 		
-		// Calculate the "centre of mass" of the two new polygons
-		Vector centreA = new Vector(a.stream().mapToDouble(v -> v.getX()).sum()/a.size(), a.stream().mapToDouble(v -> v.getY()).sum()/a.size());
-		Vector centreB = new Vector(b.stream().mapToDouble(v -> v.getX()).sum()/b.size(), b.stream().mapToDouble(v -> v.getY()).sum()/b.size());
-		
 		// Use one to replace this, return the other
 		p.vertices = a;
-		p.position = centreA;
+		p.position = getCentroid(a);
 		
-		Polygon other = new Polygon(centreB);
+		Polygon other = new Polygon(getCentroid(b));
 		other.vertices = b;
 		
 		return other;
@@ -137,6 +135,8 @@ public class PolygonHelper {
 			
 			for(int j = i+1; j < p.vertices.size(); j++) {
 				Line l2 = Line.newLineDontClone(p.vertices.get(j-1), p.vertices.get(j));
+				
+				if(LineHelper.doIntersect(l1, l2)) return true;
 			}
 		}
 		
@@ -212,11 +212,12 @@ public class PolygonHelper {
 		return false;
 	}
 	
-	// Warning: May sometime work. This is rare.
+	// Warning: Only designed to work with two intersections. If there are more than that then there may be unintended behaviour
+	// Warning #2: Occasionally it just seems not to work. At all. No clue why.
 	public static ArrayList<Polygon> cullOverlapEvenly(Polygon p, Polygon q) {
 		ArrayList<Vector> intersections = new ArrayList<>();
 		
-		// Get Intersections
+		// Get Intersections. TODO: Split this off into it's own function
 		for(int i = 0; i < p.vertices.size(); i++) {
 			Line l1 = Line.newLineDontClone(p.vertices.get(i), p.vertices.get(i+1 == p.vertices.size() ? 0 : i+1));
 			
@@ -235,16 +236,74 @@ public class PolygonHelper {
 		
 		if(intersections.size() < 2) return polys;
 		
-		System.out.println("splitting:" + intersections.size() + "::" + intersections.get(0) + ", " + intersections.get(1));
+		// Check if only one of the polygons needs to be split
+		boolean pneeds = true;
+		for(int i = 0; i < p.vertices.size() && pneeds; i++) {
+			Line l = Line.newLineDontClone(p.vertices.get(i), p.vertices.get(i+1 == p.vertices.size() ? 0 : i+1));
+			int num = 0;
+			for(Vector inter : intersections) {
+				if(LineHelper.isPointOnBoundedLine(inter, l)) num++;
+			}
+			if(num >= 2) pneeds = false;
+		}
 		
+		boolean qneeds = true;
+		for(int i = 0; i < q.vertices.size() && qneeds; i++) {
+			Line l = Line.newLineDontClone(q.vertices.get(i), q.vertices.get(i+1 == q.vertices.size() ? 0 : i+1));
+			int num = 0;
+			for(Vector inter : intersections) {
+				if(LineHelper.isPointOnBoundedLine(inter, l)) num++;
+			}
+			if(num >= 2) qneeds = false;
+		}
 		
+		// Split what needs to be split, and make order the polygons predictably
+		// TODO: Improve the ordering of polygons, to ensure that the "offcut" isn't returned before the "main" polygon.
 		Line l = new Line(intersections.get(0), intersections.get(1));
 		l.extendFromMidpoint(100);
 		
-		polys.add(split(p, l, false));
-		polys.add(split(q, l, false));
+		if(pneeds) {
+			Vector pcenter = p.getCentroid();
+			Polygon psplit = split(p, l, false);
+			if(psplit != null) {
+				polys.add(psplit);
+				if(pcenter.distance(psplit.position) < pcenter.distance(p.position)) {
+					swap(psplit, p);
+				}
+			}
+		}
+		
+		if(qneeds) {
+			Vector qcenter = q.getCentroid();
+			Polygon qsplit = split(q, l, false);
+			if(qsplit != null) {
+				polys.add(qsplit);
+				if(qcenter.distance(qsplit.position) < qcenter.distance(q.position)) {
+					swap(qsplit, q);
+				}
+			}
+		}
 		
 		return polys;
+	}
+	
+	public static void swap(Polygon p, Polygon q) {
+		// This is just so you can swap what is actually being referenced without changing the reference.
+		ArrayList<Vector> tempVerts = new ArrayList<>();
+		tempVerts.addAll(p.vertices);
+		
+		p.vertices.clear();
+		p.vertices.addAll(q.vertices);
+		q.vertices.clear();
+		q.vertices.addAll(tempVerts);
+		
+		Vector tempPos = p.position.copy();
+		p.position.setLocation(q.position);
+		q.position.setLocation(tempPos);
+		
+		Color c = p.c;
+		p.c = q.c;
+		q.c = c;
 	}
 	
 }

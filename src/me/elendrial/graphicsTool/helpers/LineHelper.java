@@ -223,9 +223,13 @@ public class LineHelper {
 		return ls;
 	}
 	
-	public static boolean isPointOnLine(Vector v, Line l) {
+	public static boolean isPointOnLine(Vector v, Line l, double tolerance) {
 		double yat = yAt(l, v.x);
-		return yat <= v.y+0.01f && yat >= v.y-0.01f;
+		return yat <= v.y+tolerance && yat >= v.y-tolerance;
+	}
+	
+	public static boolean isPointOnLine(Vector v, Line l) {
+		return isPointOnLine(v,l,0.01);
 	}
 	
 	public static boolean isPointOnBoundedLine(Vector v, Line l) {
