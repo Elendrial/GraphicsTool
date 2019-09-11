@@ -6,6 +6,5 @@ public interface PhysicsObject extends GraphicsObject{
 
 	public void translate(Vector amount);
 	public void rotate(Vector about, double radians);
-	public Vector getCentroid();
 	
 }

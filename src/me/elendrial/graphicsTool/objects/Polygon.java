@@ -95,7 +95,7 @@ public class Polygon implements PhysicsObject{
 	}
 	
 	@Override
-	public Vector getCentroid() {
+	public Vector getCentre() {
 		return PolygonHelper.getCentroid(this);
 	}
 	
@@ -108,6 +108,11 @@ public class Polygon implements PhysicsObject{
 		if(vertices.size() > 0) lines.add(Line.newLineDontClone(vertices.get(vertices.size()-1), vertices.get(0)));
 		
 		return lines;
+	}
+
+	@Override
+	public void setColor(Color c) {
+		this.c = c;
 	}
 	
 }

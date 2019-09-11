@@ -1,5 +1,6 @@
 package me.elendrial.graphicsTool.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -105,6 +106,22 @@ public class ConnectionMap implements GraphicsObject {
 	public void render(Graphics g) {
 		for(Line l : edges) l.render(g);
 		if(Settings.renderConnectionMapNodes) for(Vector v : nodes) g.drawRect(v.getIX()-1, v.getIY()-1, 2, 2);
+	}
+
+	@Override
+	public void setColor(Color c) {
+		// TODO
+	}
+
+	@Override
+	public Vector getCentre() {
+		Vector pos = new Vector();
+		for(Vector v : nodes) {
+			pos.translate(v);
+		}
+		pos.scale(1/nodes.size());
+		
+		return pos;
 	}
 	
 }

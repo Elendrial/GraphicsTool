@@ -16,7 +16,7 @@ public class PolygonHelper {
 	// But, current idea is that anything fairly trivial (eg translation) should go in Polygon, whereas anything longer than 2-3 lines should go in here.
 	
 	public static Polygon rotate(Polygon p, double radians) {
-		return p.setVertices(rotate(p.vertices, p.getCentroid(), radians));
+		return p.setVertices(rotate(p.vertices, p.getCentre(), radians));
 	}
 	
 	public static ArrayList<Vector> rotate(ArrayList<Vector> vertices, Vector point, double radians){

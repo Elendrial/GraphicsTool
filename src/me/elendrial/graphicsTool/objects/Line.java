@@ -40,7 +40,7 @@ public class Line implements PhysicsObject{
 	}
 	
 	public void extendFromMidpoint(double amount) {
-		Vector centre = getCentroid();
+		Vector centre = getCentre();
 		
 		double aLen = Math.sqrt(Math.pow(a.x-centre.x, 2) + Math.pow(a.y - centre.y, 2));
 		double bLen = Math.sqrt(Math.pow(b.x-centre.x, 2) + Math.pow(b.y - centre.y, 2));
@@ -73,7 +73,7 @@ public class Line implements PhysicsObject{
 	}
 
 	@Override
-	public Vector getCentroid() {
+	public Vector getCentre() {
 		return new Vector((a.x + b.x)/2D, (a.y+b.y)/2D);
 	}
 	
@@ -101,6 +101,11 @@ public class Line implements PhysicsObject{
 		l.a = a;
 		l.b = b;
 		return l;
+	}
+
+	@Override
+	public void setColor(Color c) {
+		this.c = c;
 	}
 	
 }

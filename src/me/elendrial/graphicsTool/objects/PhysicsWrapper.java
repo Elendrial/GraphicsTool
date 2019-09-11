@@ -1,5 +1,6 @@
 package me.elendrial.graphicsTool.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import me.elendrial.graphicsTool.Vector;
 
@@ -23,7 +24,7 @@ public class PhysicsWrapper<T extends PhysicsObject> implements GraphicsObject {
 	@Override
 	public void update() {
 		obj.translate(velocity);
-		obj.rotate(obj.getCentroid(), rotationalVelocity);
+		obj.rotate(obj.getCentre(), rotationalVelocity);
 		obj.update();
 	}
 	
@@ -36,6 +37,16 @@ public class PhysicsWrapper<T extends PhysicsObject> implements GraphicsObject {
 
 	public static PhysicsWrapper<PhysicsObject> wrap(PhysicsObject t){
 		return new PhysicsWrapper<PhysicsObject>(t);
+	}
+
+	@Override
+	public void setColor(Color c) {
+		obj.setColor(c);
+	}
+
+	@Override
+	public Vector getCentre() {
+		return obj.getCentre();
 	}
 	
 }
