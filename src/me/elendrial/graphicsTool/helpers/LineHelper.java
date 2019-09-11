@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import me.elendrial.graphicsTool.Vector;
 
 import me.elendrial.graphicsTool.objects.Line;
+import me.elendrial.graphicsTool.objects.Polygon;
 
 public class LineHelper {
 	
@@ -81,6 +82,10 @@ public class LineHelper {
 	
 	public static boolean doIntersect(Line a, Line b){
 		return doIntersect(a.a, a.b, b.a, b.b);
+	}
+	
+	public static boolean doIntersect(Line a, Vector c, Vector d) {
+		return doIntersect(a.a, a.b, c, d);
 	}
 	
 	
@@ -234,6 +239,10 @@ public class LineHelper {
 	
 	public static boolean isPointOnBoundedLine(Vector v, Line l) {
 		return isPointOnLine(v,l) && v.isWithin(l.a, l.b);
+	}
+	
+	public static boolean intersectsPolygon(Line l, Polygon p) {
+		return PolygonHelper.isIntersectedByLine(p, l);
 	}
 	
 }

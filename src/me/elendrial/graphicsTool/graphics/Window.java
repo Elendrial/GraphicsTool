@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import me.elendrial.graphicsTool.GraphicsTool;
 import me.elendrial.graphicsTool.interaction.InputHandler;
 
 public class Window {
@@ -44,7 +45,7 @@ public class Window {
 	}
 
 	public Camera getCamera() {
-		return display.cam;
+		return GraphicsTool.getScene().cam;
 	}
 	
 	

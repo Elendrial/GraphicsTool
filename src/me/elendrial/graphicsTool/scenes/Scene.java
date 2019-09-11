@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
+import me.elendrial.graphicsTool.graphics.Camera;
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 import me.elendrial.graphicsTool.objects.Polygon;
 
 abstract public class Scene {
 	
+	public Camera cam = new Camera();
 	public ArrayList<GraphicsObject> objects = new ArrayList<>();
 	public int width, height;
 	public Random rand;
