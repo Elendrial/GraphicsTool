@@ -30,7 +30,7 @@ public class GenerationHelper {
 		return getRegularPolygon(r.nextInt(maxSides - minSides) + minSides,
 								 r.nextInt(maxRadius - minRadius) + minRadius,
 								 r.nextInt(maxx - minx) + minx,
-								 r.nextInt(maxy - miny) + maxy,
+								 r.nextInt(maxy - miny) + miny,
 								 r.nextDouble() * Math.PI * 2);
 	}
 	

@@ -52,6 +52,14 @@ public class Line implements PhysicsObject{
 		b = newB;
 	}
 	
+	public void extendFromA(double amount) {
+		b.translate(a.negated()).scale(1d+amount/b.distance(Vector.ORIGIN)).translate(a);
+	}
+	
+	public void extendFromB(double amount) {
+		a.translate(b.negated()).scale(1d+amount/a.distance(Vector.ORIGIN)).translate(b);
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		g.setColor(c);

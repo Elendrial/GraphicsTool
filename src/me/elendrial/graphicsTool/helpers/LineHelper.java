@@ -2,6 +2,7 @@ package me.elendrial.graphicsTool.helpers;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import me.elendrial.graphicsTool.Vector;
@@ -10,6 +11,7 @@ import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
 
 public class LineHelper {
+	// TODO: Change all code in here to use Radians rather than Degrees. Shouldn't be too hard.
 	
 	// Intersection code nabbed from
 	// https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
@@ -88,6 +90,9 @@ public class LineHelper {
 		return doIntersect(a.a, a.b, c, d);
 	}
 	
+	public static boolean doIntersect(Line l, Polygon p) {
+		return PolygonHelper.isIntersectedByLine(p, l);
+	}
 	
 	
 	public static Vector getIntersection(Vector p1, Vector p2, Vector q1, Vector q2) {
@@ -126,7 +131,7 @@ public class LineHelper {
 		return vecs;
 	}
 	
-	public static HashMap<Line, Vector> getIntersections(Line a, ArrayList<Line> lines){
+	public static HashMap<Line, Vector> getIntersections(Line a, Collection<Line> lines){
 		HashMap<Line, Vector> vecs = new HashMap<>();
 		
 		for(Line l : lines)	
@@ -136,6 +141,20 @@ public class LineHelper {
 		return vecs;
 	}
 	
+	public static HashMap<Vector, Polygon> getIntersectionsWithPolygons(Line l, Collection<Polygon> ps){
+		HashMap<Vector, Polygon> vecs = new HashMap<>();
+		
+		for(Polygon p : ps) { // Not using doIntersect(l,p) as it is implicitly checked with the rest of the code, resulting in no change for the false, and avoiding double checking the positive
+			for(int i = 0; i < p.vertices.size(); i++) {
+				Line line = Line.newLineDontClone(p.vertices.get(i-1 < 0 ? p.vertices.size()-1 : i-1), p.vertices.get(i));
+				
+				if(doIntersect(l,line)) 
+					vecs.put(getIntersection(l, line), p);
+			}
+		}
+		
+		return vecs;
+	}
 	
 	
 	public static Vector getOppositeEnd(Vector start, double angle, double length) {
@@ -183,6 +202,11 @@ public class LineHelper {
 		if(a.y-b.y == 0) return 0;
 		return 180 - (Math.atan((a.x-b.x)/(a.y-b.y)) * (180/Math.PI));
 	}
+	
+	public static double angleOfLine(Line l) {
+		return angleOfLine(l.a, l.b);
+	}
+	
 	
 	public static double xAt(Line l, double y) {
 		// TODO: Vector check thisw
@@ -241,8 +265,6 @@ public class LineHelper {
 		return isPointOnLine(v,l) && v.isWithin(l.a, l.b);
 	}
 	
-	public static boolean intersectsPolygon(Line l, Polygon p) {
-		return PolygonHelper.isIntersectedByLine(p, l);
-	}
+	
 	
 }

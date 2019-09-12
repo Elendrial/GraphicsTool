@@ -12,6 +12,7 @@ public class InputHandler implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		switch(arg0.getKeyCode()) {
+			// Camera
 		case KeyEvent.VK_LEFT:
 			GraphicsTool.getScene().cam.translate(-10, 0);
 			break;
@@ -22,7 +23,7 @@ public class InputHandler implements KeyListener{
 			GraphicsTool.getScene().cam.translate(0, -10);
 			break;
 		case KeyEvent.VK_DOWN:
-			GraphicsTool.getScene().cam.translate(0,-10);
+			GraphicsTool.getScene().cam.translate(0, 10);
 			break;
 		}
 	}
@@ -30,6 +31,7 @@ public class InputHandler implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		switch(arg0.getKeyCode()) {
+			// Renders
 		case KeyEvent.VK_P:
 			Settings.renderPolygonCenters = !Settings.renderPolygonCenters;
 			break;
@@ -45,6 +47,8 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_C:
 			Settings.renderConnectionMapNodes = !Settings.renderConnectionMapNodes;
 			break;
+			
+			// Updates
 		case KeyEvent.VK_EQUALS:
 			Settings.updateDelay += 1;
 			break;
@@ -55,6 +59,12 @@ public class InputHandler implements KeyListener{
 			break;
 		case KeyEvent.VK_UNDERSCORE:
 			Settings.updateDelay -= 10;
+			break;
+			
+			// Misc
+		case KeyEvent.VK_N:
+			GraphicsTool.getScene().objects.clear();
+			GraphicsTool.getScene().load();
 			break;
 		}
 	}

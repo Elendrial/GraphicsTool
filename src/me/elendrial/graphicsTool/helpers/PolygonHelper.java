@@ -309,7 +309,7 @@ public class PolygonHelper {
 
 	public static boolean isIntersectedByLine(Polygon p, Line l) {
 		for(int i = 0; i < p.vertices.size(); i++) {
-			if(LineHelper.doIntersect(l, p.vertices.get(i-1 < 0 ? p.vertices.size() : i-1), p.vertices.get(i))) return true;
+			if(LineHelper.doIntersect(l, p.vertices.get(i-1 < 0 ? p.vertices.size()-1 : i-1), p.vertices.get(i))) return true;
 		}
 		return false;
 	}
