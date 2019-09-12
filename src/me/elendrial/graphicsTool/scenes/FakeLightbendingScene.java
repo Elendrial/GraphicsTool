@@ -19,11 +19,11 @@ public class FakeLightbendingScene extends Scene{
 		// Generate a load of polygons, give them all an amount to bend lines
 		HashMap<Polygon, Integer> polyMap = new HashMap<>();
 		
-		int num = rand.nextInt(10)+10;
+		int num = 6;
 		for(int i = 0; i < num; i++) {
-			Polygon p = GenerationHelper.getRandomRegularPolygon(3, 10, 50, 300, -200, width + 200, -200, height + 200);
+			Polygon p = GenerationHelper.getRandomRegularPolygon(3, 10, 200, 400, -200, width + 200, 00, height + 00);
 			objects.add(p);
-			polyMap.put(p, rand.nextInt(180)-90);
+			polyMap.put(p, rand.nextInt(90)-45);
 		}
 		
 		// Generate a bunch of lines in a direction
@@ -34,6 +34,11 @@ public class FakeLightbendingScene extends Scene{
 			Line l = new Line(50, 300 + i * 3, 2000, 300 + i * 3);
 			l.setColor(ColorHelper.getChangingColour(0, 1, 0f));
 			newLines.add(l);
+			
+			// The backwards line
+			Line l2 = new Line(50, 300 + i * 3, -2000, 300 + i * 3);
+			l2.setColor(ColorHelper.getChangingColour(0, 1, 0f));
+			newLines.add(l2);
 		}
 		
 		// Loop over all lines, find the first intersection with a polygon
@@ -61,7 +66,7 @@ public class FakeLightbendingScene extends Scene{
 					l.b.setLocation(closest);
 					
 					double angle = LineHelper.angleOfLine(l) + polyMap.get(intersections.get(closest));
-					Line newLine = new Line(closest, closest.copy().translate(2000 * Math.cos(angle * 180/Math.PI), 2000 * Math.sin((angle * 180/Math.PI))));
+					Line newLine = new Line(closest, closest.copy().translate(2000 * Math.cos(angle * Math.PI/180), 2000 * Math.sin((angle * Math.PI/180))));
 					newLine.extendFromB(-1); // Ensures that it doesn't bounce off the same surface multiple times
 					newLines.add(newLine);
 					

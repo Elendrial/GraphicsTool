@@ -25,6 +25,10 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_DOWN:
 			GraphicsTool.getScene().cam.translate(0, 10);
 			break;
+		case KeyEvent.VK_R:
+			GraphicsTool.getScene().cam.setX(0);
+			GraphicsTool.getScene().cam.setY(0);
+			break;
 		}
 	}
 
