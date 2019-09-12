@@ -6,7 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.Random;
 
 import me.elendrial.graphicsTool.Vector;
+import me.elendrial.graphicsTool.helpers.GenerationHelper;
 import me.elendrial.graphicsTool.helpers.LineHelper;
+import me.elendrial.graphicsTool.helpers.PolygonHelper;
 import me.elendrial.graphicsTool.objects.ConnectionMap;
 import me.elendrial.graphicsTool.objects.Line;
 
@@ -27,9 +29,9 @@ public class WebScene extends Scene{
 		
 		objects.add(map);
 		
-	//	Vector v1 = new Vector(275,50);
-	//	Vector v2 = new Vector(50,175);
-	//	map.lenientAddEdge(v1, v2);
+		Vector v1 = new Vector(275,50);
+		Vector v2 = new Vector(50,175);
+		map.lenientAddEdge(v1, v2);
 		
 		Vector v3 = new Vector(275,850);
 		Vector v4 = new Vector(50, 725);
@@ -43,14 +45,21 @@ public class WebScene extends Scene{
 		Vector v8 = new Vector(1350, 725);
 		map.lenientAddEdge(v7, v8);
 		
-	//	staticNodes.add(v1);
-	//	staticNodes.add(v2);
+		staticNodes.add(v1);
+		staticNodes.add(v2);
 		staticNodes.add(v3);
 		staticNodes.add(v4);
 		staticNodes.add(v5);
 		staticNodes.add(v6);
 		staticNodes.add(v7);
 		staticNodes.add(v8);
+		
+		
+		//for(Line l : PolygonHelper.decompose(GenerationHelper.getSmudge())) {
+		//	map.lenientAddEdge(l);
+		//}
+		
+		//map.translate(100, 0);
 		
 	}
 
@@ -67,20 +76,24 @@ public class WebScene extends Scene{
 			LinkedHashMap<Line, Vector> intersections;
 			HashMap<Line, Vector> unorderedIntersections;
 			
+			int attempt = 0;
+			int index;
 			// Idea for how:	create a random line, L
 			do {
-				l = new Line(rand.nextInt(width), rand.nextInt(height), rand.nextInt(width), rand.nextInt(height));
-				//l.extendFromMidpoint(300);
+				do {
+					l = new Line(rand.nextInt(width), rand.nextInt(height), rand.nextInt(width), rand.nextInt(height));
+					//l.extendFromMidpoint(300);
+					
+					unorderedIntersections = LineHelper.getIntersections(l, map.edges);
 				
-				unorderedIntersections = LineHelper.getIntersections(l, map.edges);
-			
-			}while(unorderedIntersections.size() < 2);
-			
-			//					find two neighbouring intersections along L
-			intersections = LineHelper.orderVectorsAlongLine(unorderedIntersections, l);
-			int index = rand.nextInt(intersections.size()-1);
-			l.a = (Vector) intersections.values().toArray()[index];
-			l.b = (Vector) intersections.values().toArray()[index+1];
+				}while(unorderedIntersections.size() < 2);
+				
+				//					find two neighbouring intersections along L
+				intersections = LineHelper.orderVectorsAlongLine(unorderedIntersections, l);
+				index = rand.nextInt(intersections.size()-1);
+				l.a = (Vector) intersections.values().toArray()[index];
+				l.b = (Vector) intersections.values().toArray()[index+1];
+			}while(l.a.distance(l.b) < 5 && attempt++ < 100); // Gotta be far apart
 			
 			//					place node at each intersection, create a line between them and insert them into the lines they intersect
 			map.addNodes(l.a, l.b);
@@ -115,11 +128,11 @@ public class WebScene extends Scene{
 				}
 				
 				// Optional changes which can be changed to almost anything
-				//total.x = (total.x/Math.abs(total.x)) * Math.pow(Math.abs(total.x/(width/8)), 3);
-				//total.y = (total.y/Math.abs(total.y)) * Math.pow(Math.abs(total.y/(height/8)),3);
+		//		if(total.x != 0) total.x = (total.x/Math.abs(total.x)) * Math.pow(Math.abs(total.x/(width/20)), 3);
+		//		if(total.y != 0) total.y = (total.y/Math.abs(total.y)) * Math.pow(Math.abs(total.y/(height/20)),3);
 				
 				// Tweak to make the above more reasonable.
-				total.scale(0.1d);
+				total.scale(0.05d);
 				
 				changes.put(v, total);
 			}
@@ -130,7 +143,7 @@ public class WebScene extends Scene{
 		}
 		
 		state ++;
-		state %= 3;
+		state %= 8;
 	}
 
 }

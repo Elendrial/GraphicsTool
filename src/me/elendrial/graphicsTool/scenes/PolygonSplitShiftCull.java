@@ -1,7 +1,5 @@
 package me.elendrial.graphicsTool.scenes;
 
-import java.awt.Color;
-
 import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.helpers.ColorHelper;
 import me.elendrial.graphicsTool.helpers.PolygonHelper;
