@@ -6,9 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Random;
 
 import me.elendrial.graphicsTool.Vector;
-import me.elendrial.graphicsTool.helpers.GenerationHelper;
 import me.elendrial.graphicsTool.helpers.LineHelper;
-import me.elendrial.graphicsTool.helpers.PolygonHelper;
 import me.elendrial.graphicsTool.objects.ConnectionMap;
 import me.elendrial.graphicsTool.objects.Line;
 

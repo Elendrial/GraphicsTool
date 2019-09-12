@@ -1,6 +1,5 @@
 package me.elendrial.graphicsTool.scenes;
 
-import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.helpers.ColorHelper;
 import me.elendrial.graphicsTool.helpers.PolygonHelper;
 import me.elendrial.graphicsTool.objects.Line;
@@ -18,8 +17,6 @@ public class PolygonSplitShiftCull extends PolygonSplitAndShift{
 		
 		if(q != null) {
 			objects.add(q);
-			
-			Vector pcenter = p.position.copy(), qcenter = q.position.copy();
 			
 			movePolys(p, q, split, 90, 5);
 			

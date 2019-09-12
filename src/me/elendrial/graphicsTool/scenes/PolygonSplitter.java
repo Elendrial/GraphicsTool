@@ -1,6 +1,5 @@
 package me.elendrial.graphicsTool.scenes;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import me.elendrial.graphicsTool.Vector;
 import java.util.ArrayList;
