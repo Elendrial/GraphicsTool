@@ -18,7 +18,7 @@ public class MorphingFakeLightbendingScene extends Scene {
 
 	Random rand = new Random();
 	int state = 0;
-	int polys = 8;
+	int polys = 4;
 	int updatesToChange = 1000;
 	HashMap<Polygon, Integer> polyMap = new HashMap<>();
 	ArrayList<Polygon> polygons = new ArrayList<>(); // just to get them by index.
@@ -36,17 +36,19 @@ public class MorphingFakeLightbendingScene extends Scene {
 			objects.add(p);
 			p.c = ColorHelper.getChangingColour(0f, 0.7f, 0.7f/(float)polys);
 			polygons.add(p);
-			polyMap.put(p, rand.nextInt(90)-45);
+			do {
+				polyMap.put(p, rand.nextInt(90)-45);
+			} while(polyMap.get(p) < 10 && polyMap.get(p) > -10);
 		}
 		
 		// Generate the initial points
 		for(int i = 0; i < 30; i++) {
-			Line l = new Line(50, 300 + i * 3, 2000, 300 + i * 3);
+			Line l = new Line(width/2, 300 + i * 3, 2000, 300 + i * 3);
 			l.setColor(ColorHelper.getChangingColour(0, 1, 0f));
 			sourceLines.add(l);
 			
 			// The backwards lines
-			Line l2 = new Line(50, 300 + i * 3, -2000, 300 + i * 3);
+			Line l2 = new Line(width/2, 300 + i * 3, -1000, 300 + i * 3);
 			l2.setColor(ColorHelper.getChangingColour(0, 1, 0f));
 			sourceLines.add(l2);
 		}
@@ -111,6 +113,9 @@ public class MorphingFakeLightbendingScene extends Scene {
 		
 		state++;
 		calculateLines();
+		startingColour += delta * 3.5;
+		startingColour %= 1;
+		ColorHelper.rotatingcolour = startingColour;
 	}
 	
 	public void calculateLines() {
@@ -140,6 +145,7 @@ public class MorphingFakeLightbendingScene extends Scene {
 			newLines.clear();
 			
 			for(Line l : toLoopOver) {
+				l.setColor(ColorHelper.getChangingColour(0, 1, 0f));
 				HashMap<Vector, Polygon> intersections = LineHelper.getIntersectionsWithPolygons(l, polyMap.keySet());
 				
 				Vector closest = intersections.keySet().stream().sorted((v1,v2) -> {
@@ -156,7 +162,6 @@ public class MorphingFakeLightbendingScene extends Scene {
 					newLine.extendFromB(-1); // Ensures that it doesn't bounce off the same surface multiple times
 					newLines.add(newLine);
 					
-					newLine.setColor(ColorHelper.getChangingColour(0, 1, 0f));
 				}
 			}
 			ColorHelper.getChangingColour(0, 1, 0.02f);
