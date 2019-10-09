@@ -156,6 +156,7 @@ public class Vector {
 	}
 	
 	public boolean equals(Object v) {
+		if(v == null) return false;
 		if(!(v instanceof Vector)) return false;
 		
 		return ((Vector) v).x == x && ((Vector) v).y == y;

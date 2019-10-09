@@ -314,4 +314,84 @@ public class PolygonHelper {
 		return false;
 	}
 	
+	public static ArrayList<Vector> getIntersectionsWithLine(Polygon p, Line l){
+		return LineHelper.getIntersectionsWithPolygon(l, p);
+	}
+	
+	public static ArrayList<Polygon> mirrorPolygon(Polygon pgo, Line l, boolean cull){
+		ArrayList<Polygon> polys = new ArrayList<>();
+		
+		if(cull) {
+			boolean mirror = false;
+			
+			// Check if we have to mirror
+			for(int i = 0; i < pgo.vertices.size() && !mirror; i++) {
+				if(LineHelper.sideOfLine(l, pgo.vertices.get(i)) < 0) mirror = true;
+			}
+			
+			if(mirror) {
+				// TODO: Make this more general, so far it only works for convex polygons
+				// Move anything that crosses
+				Vector a, b;
+				ArrayList<Vector> vs = new ArrayList<>();
+				
+				if(PolygonHelper.isIntersectedByLine(pgo, l)) {
+					int backaround = 0;
+					boolean onSide = true, beenOff = false;
+					
+					for(int i = 0; i < pgo.vertices.size(); i++) {
+						a = pgo.vertices.get(i-1 < 0 ? pgo.vertices.size()-1 : i-1);
+						b = pgo.vertices.get(i);
+						
+						if(!onSide && LineHelper.doIntersect(l, a, b)) {
+							onSide = true;
+							vs.add(backaround++, LineHelper.getIntersection(l, new Line(a,b)));
+							vs.add(backaround++, b);
+						}
+						else {
+							onSide = LineHelper.sideOfLine(l, b) < 0;
+							if(onSide) {
+								if(!beenOff) vs.add(b);
+								else {
+									vs.add(backaround++, b);
+								}
+							}
+							else {
+								beenOff = true;
+								vs.add(LineHelper.getIntersection(l, new Line(a,b)));
+							}
+						}
+					}
+					
+					ArrayList<Vector> opposites = new ArrayList<Vector>();
+					for(Vector v : vs) {
+						opposites.add(0,LineHelper.mirrorPoint(l, v));
+					}
+					vs.addAll(opposites);
+					
+				}
+				else {
+					for(Vector v : pgo.vertices) 
+						vs.add(LineHelper.mirrorPoint(l, v));
+					polys.add(pgo);
+				}
+				
+				polys.add(new Polygon().setVertices(vs));
+			}
+		}
+		
+		// No culling, so everything is mirrored without checks
+		else{
+			ArrayList<Vector> vs = new ArrayList<>();
+			
+			for(Vector v : pgo.vertices) 
+				vs.add(LineHelper.mirrorPoint(l, v));
+			
+			polys.add(pgo);
+			polys.add(new Polygon().setVertices(vs));
+		}
+		
+		return polys;
+	}
+	
 }

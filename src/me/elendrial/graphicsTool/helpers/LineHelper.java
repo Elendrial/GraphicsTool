@@ -141,6 +141,18 @@ public class LineHelper {
 		return vecs;
 	}
 	
+	public static ArrayList<Vector> getIntersectionsWithPolygon(Line l, Polygon p){
+		ArrayList<Vector> vecs = new ArrayList<>();
+		for(int i = 0; i < p.vertices.size(); i++) {
+			Line line = Line.newLineDontClone(p.vertices.get(i-1 < 0 ? p.vertices.size()-1 : i-1), p.vertices.get(i));
+			
+			if(doIntersect(l,line)) 
+				vecs.add(getIntersection(l, line));
+		}
+		
+		return vecs;
+	}
+	
 	public static HashMap<Vector, Polygon> getIntersectionsWithPolygons(Line l, Collection<Polygon> ps){
 		HashMap<Vector, Polygon> vecs = new HashMap<>();
 		
@@ -265,6 +277,26 @@ public class LineHelper {
 		return isPointOnLine(v,l) && v.isWithin(l.a, l.b);
 	}
 	
+	public static double sideOfLine(Line l, Vector v) {
+		return (v.x - l.a.x) * (l.b.y - l.a.y) - (v.y - l.a.y) * (l.b.x - l.a.x);
+	}
 	
+	public static Vector mirrorPoint(Line l, Vector v) {
+		// Process explained by https://stackoverflow.com/a/8954454/3444121
+		// TODO: Simplify by using Vectors;
+		double A = l.b.y - l.a.y;
+		double B = -(l.b.x-l.a.x);
+		double C = -A * l.a.x - B * l.a.y;
+		
+		double M = Math.sqrt(A * A + B * B);
+		
+		double A_ = A/M;
+		double B_ = B/M;
+		double C_ = C/M;
+		
+		double D = A_ * v.x + B_ * v.y + C_;
+		
+		return v.copy().translate(-2 * A_ * D, -2 * B_ * D);
+	}
 	
 }

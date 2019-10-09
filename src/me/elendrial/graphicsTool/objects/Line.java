@@ -60,6 +60,16 @@ public class Line implements PhysicsObject{
 		a.translate(b.negated()).scale(1d+amount/a.distance(Vector.ORIGIN)).translate(b);
 	}
 	
+	public void flip() {
+		Vector c = a;
+		a = b;
+		b = c;
+	}
+	
+	public Line flipped() {
+		return new Line(b,a);
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		g.setColor(c);
