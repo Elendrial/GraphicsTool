@@ -213,12 +213,9 @@ public class PolygonHelper {
 		return false;
 	}
 	
-	// Warning: Only designed to work with two intersections. If there are more than that then there may be unintended behaviour
-	// Warning #2: Occasionally it just seems not to work. At all. No clue why.
-	public static ArrayList<Polygon> cullOverlapEvenly(Polygon p, Polygon q) {
+	public static ArrayList<Vector> getIntersections(Polygon p, Polygon q){
 		ArrayList<Vector> intersections = new ArrayList<>();
 		
-		// Get Intersections. TODO: Split this off into it's own function
 		for(int i = 0; i < p.vertices.size(); i++) {
 			Line l1 = Line.newLineDontClone(p.vertices.get(i), p.vertices.get(i+1 == p.vertices.size() ? 0 : i+1));
 			
@@ -230,6 +227,14 @@ public class PolygonHelper {
 					intersections.add(inter);
 			}
 		}
+		
+		return intersections;
+	}
+	
+	// Warning: Only designed to work with two intersections. If there are more than that then there may be unintended behaviour
+	// Warning #2: Occasionally it just seems not to work. At all. No clue why.
+	public static ArrayList<Polygon> cullOverlapEvenly(Polygon p, Polygon q) {
+		ArrayList<Vector> intersections = getIntersections(p,q);
 		
 		ArrayList<Polygon> polys = new ArrayList<>();
 		polys.add(p);
@@ -331,52 +336,20 @@ public class PolygonHelper {
 			
 			if(mirror) {
 				// TODO: Make this more general, so far it only works for convex polygons
-				// Move anything that crosses
-				Vector a, b;
 				ArrayList<Vector> vs = new ArrayList<>();
 				
-				if(PolygonHelper.isIntersectedByLine(pgo, l)) {
-					int backaround = 0;
-					boolean onSide = true, beenOff = false;
-					
-					for(int i = 0; i < pgo.vertices.size(); i++) {
-						a = pgo.vertices.get(i-1 < 0 ? pgo.vertices.size()-1 : i-1);
-						b = pgo.vertices.get(i);
-						
-						if(!onSide && LineHelper.doIntersect(l, a, b)) {
-							onSide = true;
-							vs.add(backaround++, LineHelper.getIntersection(l, new Line(a,b)));
-							vs.add(backaround++, b);
-						}
-						else {
-							onSide = LineHelper.sideOfLine(l, b) < 0;
-							if(onSide) {
-								if(!beenOff) vs.add(b);
-								else {
-									vs.add(backaround++, b);
-								}
-							}
-							else {
-								beenOff = true;
-								vs.add(LineHelper.getIntersection(l, new Line(a,b)));
-							}
-						}
-					}
-					
-					ArrayList<Vector> opposites = new ArrayList<Vector>();
-					for(Vector v : vs) {
-						opposites.add(0,LineHelper.mirrorPoint(l, v));
-					}
-					vs.addAll(opposites);
-					
+				for(Vector v : pgo.vertices) 
+					vs.add(LineHelper.mirrorPoint(l, v));
+				
+				Polygon mirrored = new Polygon().setVertices(vs);
+				
+				if(PolygonHelper.doIntersect(pgo, mirrored)) {
+					polys.add(combineOnOverlap(pgo, mirrored));
 				}
 				else {
-					for(Vector v : pgo.vertices) 
-						vs.add(LineHelper.mirrorPoint(l, v));
+					polys.add(mirrored);
 					polys.add(pgo);
 				}
-				
-				polys.add(new Polygon().setVertices(vs));
 			}
 		}
 		
@@ -392,6 +365,32 @@ public class PolygonHelper {
 		}
 		
 		return polys;
+	}
+	
+	public static Polygon combineOnOverlap(Polygon p, Polygon q) {
+		// TODO: see if more efficient using https://stackoverflow.com/a/19475433/3444121
+		// It probably also works better in general.
+		/*if(!PolygonHelper.doIntersect(p, q)) return null;
+		ArrayList<Vector> allPoints = new ArrayList<Vector>();
+		allPoints.addAll(p.vertices);
+		allPoints.addAll(q.vertices);
+		
+		allPoints.addAll(PolygonHelper.getIntersections(p, q));
+		
+		// Find bottom left point
+		Vector cur = allPoints.get(0);
+		for(Vector v : allPoints) 
+			if(v.magnitude() < cur.magnitude()) cur = v;
+		
+		// Walk around shape.
+		
+		Polygon combination = new Polygon();
+		
+		return combination;*/
+		
+		ArrayList<Polygon> ps = cullOverlapEvenly(p.getCopy(), q.getCopy());
+		linkSharedEdges(ps.get(0), ps.get(1));
+		return ps.get(0);
 	}
 	
 }

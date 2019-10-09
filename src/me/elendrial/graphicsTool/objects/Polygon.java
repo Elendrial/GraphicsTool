@@ -115,4 +115,14 @@ public class Polygon implements PhysicsObject{
 		this.c = c;
 	}
 	
+	public Polygon getCopy() {
+		ArrayList<Vector> vecs = new ArrayList<>();
+		vertices.forEach(v -> vecs.add(v.copy()));
+		
+		Polygon p = new Polygon().setVertices(vecs);
+		p.c = c;
+		p.position = position.copy();
+		return p;
+	}
+	
 }

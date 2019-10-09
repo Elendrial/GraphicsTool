@@ -108,6 +108,14 @@ public class Vector {
 		return rotateRad(Math.PI*degrees/180);
 	}
 	
+	public double getAngleRad() {
+		return Math.atan(y/x);
+	}
+	
+	public double getAngleDeg() {
+		return getAngleRad() * 180D / Math.PI;
+	}
+	
 	/** Essentially a clone method.
 	 *  
 	 *  @return a copy of this vector. */

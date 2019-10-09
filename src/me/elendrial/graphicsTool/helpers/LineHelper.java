@@ -298,5 +298,21 @@ public class LineHelper {
 		
 		return v.copy().translate(-2 * A_ * D, -2 * B_ * D);
 	}
+
+	public static ArrayList<Line> mirrorLine(Line lgo, Line l, boolean cull) {
+		ArrayList<Line> mirroredScene = new ArrayList<>();
+		Vector a, b;
+		a = !cull || LineHelper.sideOfLine(l, lgo.a) < 0 ? lgo.a.copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;
+		b = !cull || LineHelper.sideOfLine(l, lgo.b) < 0 ? lgo.b.copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;
+		
+		if(cull && a!= null && !lgo.a.equals(a)) lgo.a.setLocation(a);
+		if(cull && b!= null && !lgo.b.equals(b)) lgo.b.setLocation(b);
+		
+		if(a != null && b != null) {
+			mirroredScene.add(new Line(mirrorPoint(l, a), mirrorPoint(l, b)));
+			mirroredScene.add(new Line(a, b));
+		}
+		return mirroredScene;
+	}
 	
 }

@@ -28,7 +28,7 @@ public class MirroringScene extends Scene{
 
 	@Override
 	public void update() {
-		Line l = new Line(r.nextInt(width-400)+200, r.nextInt(height), r.nextInt(width-400)+200, r.nextInt(height));
+		Line l = new Line(r.nextInt(width-800)+400, r.nextInt(height), r.nextInt(width-800)+400, r.nextInt(height));
 		l.extendFromMidpoint(1500);
 		
 		if(LineHelper.sideOfLine(l, new Vector(200, height/2)) > 0) l.flip();
