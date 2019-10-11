@@ -97,7 +97,7 @@ public class Vector {
 	}
 	
 	public Vector rotateDeg(double degrees, Vector v){
-		return rotateRad(Math.PI*degrees/180, v);
+		return rotateRad(Math.PI*degrees/180d, v);
 	}
 
 	public Vector rotateRad(double radians) {
@@ -105,7 +105,7 @@ public class Vector {
 	}
 	
 	public Vector rotateDeg(double degrees) {
-		return rotateRad(Math.PI*degrees/180);
+		return rotateRad(Math.PI*degrees/180d);
 	}
 	
 	public double getAngleRad() {

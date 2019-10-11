@@ -10,7 +10,7 @@ import me.elendrial.graphicsTool.objects.Polygon;
 
 public class SceneHelper {
 
-	public static ArrayList<GraphicsObject> mirrorScene(ArrayList<GraphicsObject> gos, Line l, boolean cull){
+	public static ArrayList<GraphicsObject> mirrorScene(ArrayList<? extends GraphicsObject> gos, Line l, boolean cull){
 		ArrayList<GraphicsObject> mirroredScene = new ArrayList<GraphicsObject>();
 		
 		for(GraphicsObject go : gos) {
@@ -35,7 +35,7 @@ public class SceneHelper {
 		return null;
 	}
 	
-	public static ArrayList<Line> decomposeScene(ArrayList<GraphicsObject> gos){
+	public static ArrayList<Line> decomposeScene(ArrayList<? extends GraphicsObject> gos){
 		ArrayList<Line> scene = new ArrayList<>();
 		
 		for(GraphicsObject go : gos) {
