@@ -10,16 +10,21 @@ import me.elendrial.graphicsTool.objects.Polygon;
 
 public class SceneHelper {
 
+
 	public static ArrayList<GraphicsObject> mirrorScene(ArrayList<? extends GraphicsObject> gos, Line l, boolean cull){
+		return mirrorScene(gos, l, cull, true);
+	}
+	
+	public static ArrayList<GraphicsObject> mirrorScene(ArrayList<? extends GraphicsObject> gos, Line l, boolean cull, boolean keepColour){
 		ArrayList<GraphicsObject> mirroredScene = new ArrayList<GraphicsObject>();
 		
 		for(GraphicsObject go : gos) {
 			if(go instanceof Line) {
-				mirroredScene.addAll(LineHelper.mirrorLine((Line) go, l, cull));
+				mirroredScene.addAll(LineHelper.mirrorLine((Line) go, l, cull, keepColour));
 			}
 			
 			else if(go instanceof Polygon) {
-				mirroredScene.addAll(PolygonHelper.mirrorPolygon((Polygon) go, l, cull));
+				mirroredScene.addAll(PolygonHelper.mirrorPolygon((Polygon) go, l, cull, keepColour));
 			}
 			
 			else if(go instanceof ConnectionMap) {

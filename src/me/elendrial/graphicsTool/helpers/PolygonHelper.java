@@ -272,6 +272,7 @@ public class PolygonHelper {
 			Vector pcenter = p.position.copy();
 			Polygon psplit = split(p, l, false);
 			if(psplit != null) {
+				psplit.c = p.c;
 				polys.add(psplit);
 				if(pcenter.distance(psplit.position) < pcenter.distance(p.position)) {
 					swap(psplit, p);
@@ -283,6 +284,7 @@ public class PolygonHelper {
 			Vector qcenter = q.position.copy();
 			Polygon qsplit = split(q, l, false);
 			if(qsplit != null) {
+				qsplit.c = q.c;
 				polys.add(qsplit);
 				if(qcenter.distance(qsplit.position) < qcenter.distance(q.position)) {
 					swap(qsplit, q);
@@ -323,7 +325,12 @@ public class PolygonHelper {
 		return LineHelper.getIntersectionsWithPolygon(l, p);
 	}
 	
+
 	public static ArrayList<Polygon> mirrorPolygon(Polygon pgo, Line l, boolean cull){
+		return mirrorPolygon(pgo, l, cull, true);
+	}
+	
+	public static ArrayList<Polygon> mirrorPolygon(Polygon pgo, Line l, boolean cull, boolean keepColour){
 		ArrayList<Polygon> polys = new ArrayList<>();
 		
 		if(cull) {
@@ -349,6 +356,7 @@ public class PolygonHelper {
 				else {
 					polys.add(mirrored);
 					polys.add(pgo);
+					if(keepColour) mirrored.c = pgo.c;
 				}
 			}
 		}
@@ -361,7 +369,9 @@ public class PolygonHelper {
 				vs.add(LineHelper.mirrorPoint(l, v));
 			
 			polys.add(pgo);
-			polys.add(new Polygon().setVertices(vs));
+			Polygon mirrored = new Polygon().setVertices(vs);
+			polys.add(mirrored);
+			if(keepColour) mirrored.c = pgo.c;
 		}
 		
 		return polys;

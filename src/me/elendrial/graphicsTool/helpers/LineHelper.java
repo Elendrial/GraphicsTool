@@ -199,6 +199,10 @@ public class LineHelper {
 		return (a.y - b.y)/(b.x - a.x);
 	}
 	
+	public static double gradientOfNormal(Line l) {
+		return (l.a.y - l.b.y)/(l.b.x - l.a.x);
+	}
+	
 	
 	public static Vector toVectorPoint(Point p){
 		return new Vector(p.getX(), p.getY());
@@ -299,7 +303,12 @@ public class LineHelper {
 		return v.copy().translate(-2 * A_ * D, -2 * B_ * D);
 	}
 
+
 	public static ArrayList<Line> mirrorLine(Line lgo, Line l, boolean cull) {
+		return mirrorLine(lgo, l, cull, true);
+	}
+	
+	public static ArrayList<Line> mirrorLine(Line lgo, Line l, boolean cull, boolean keepColour) {
 		ArrayList<Line> mirroredScene = new ArrayList<>();
 		Vector a, b;
 		a = !cull || LineHelper.sideOfLine(l, lgo.a) < 0 ? lgo.a.copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;

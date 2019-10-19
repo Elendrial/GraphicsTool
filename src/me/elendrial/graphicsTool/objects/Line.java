@@ -83,6 +83,13 @@ public class Line implements PhysicsObject{
 		a.y += amount.y;
 		b.y += amount.y;
 	}
+	
+	public void translate(double x, double y) {
+		a.x += x;
+		b.x += x;
+		a.y += y;
+		b.y += y;
+	}
 
 	@Override
 	public void rotate(Vector about, double radians) {

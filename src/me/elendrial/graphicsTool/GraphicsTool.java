@@ -42,7 +42,12 @@ public class GraphicsTool {
 		while(running) {
 			w.render();
 			wait(Settings.updateDelay);
-			loadedScene.update();
+			try {
+				loadedScene.update();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
