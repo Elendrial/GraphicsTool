@@ -9,7 +9,7 @@ public class GraphicsTool {
 
 	private static Scene loadedScene;
 	public static boolean running = true;
-	public static Window w = new Window("Graphics Tool", 1200, 1000);
+	public static Window w = new Window("Graphics Tool", 1000, 1000);
 	
 	public static void main(String[] args) {
 		w.createDisplay();
