@@ -42,8 +42,8 @@ public class Line implements PhysicsObject{
 	public void extendFromMidpoint(double amount) {
 		Vector centre = getCentre();
 		
-		double aLen = Math.sqrt(Math.pow(a.x-centre.x, 2) + Math.pow(a.y - centre.y, 2));
-		double bLen = Math.sqrt(Math.pow(b.x-centre.x, 2) + Math.pow(b.y - centre.y, 2));
+		double aLen = centre.distance(a);
+		double bLen = centre.distance(b);
 		
 		Vector newA = new Vector(((a.x - centre.x)/aLen) * (aLen + amount) + centre.x, ((a.y - centre.y)/aLen) * (aLen + amount) + centre.y);
 		Vector newB = new Vector(((b.x - centre.x)/bLen) * (bLen + amount) + centre.x, ((b.y - centre.y)/bLen) * (bLen + amount) + centre.y);
@@ -58,6 +58,26 @@ public class Line implements PhysicsObject{
 	
 	public void extendFromB(double amount) {
 		a.translate(b.negated()).scale(1d+amount/a.distance(Vector.ORIGIN)).translate(b);
+	}
+	
+	// TODO: Set length methods
+	
+	public void setLengthFromMidpoint(double length) {
+		Vector centre = getCentre();
+		
+		double aLen = centre.distance(a);
+		double bLen = centre.distance(b);
+		
+		a.translate(centre.negated()).scale(1d/aLen * length).translate(centre);
+		b.translate(centre.negated()).scale(1d/bLen * length).translate(centre);
+	}
+	
+	public void setLengthFromA(double length) {
+		b.translate(a.negated()).setUnitVector().scale(length).translate(a);
+	}
+	
+	public void setLengthFromB(double length) {
+		a.translate(b.negated()).setUnitVector().scale(length).translate(b);
 	}
 	
 	public void flip() {

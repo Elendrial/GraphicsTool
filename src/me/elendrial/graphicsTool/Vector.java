@@ -85,6 +85,13 @@ public class Vector {
 		return new Vector(x/dist, y/dist);
 	}
 	
+	public Vector setUnitVector() {
+		double mag = magnitude();
+		x /= mag;
+		y /= mag;
+		return this;
+	}
+	
 	public boolean isUnitVector() {
 		return distance(ORIGIN) == 1;
 	}
