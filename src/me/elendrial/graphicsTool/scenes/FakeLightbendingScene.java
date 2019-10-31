@@ -3,12 +3,13 @@ package me.elendrial.graphicsTool.scenes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import me.elendrial.graphicsTool.Vector;
+
 import me.elendrial.graphicsTool.helpers.ColorHelper;
 import me.elendrial.graphicsTool.helpers.GenerationHelper;
 import me.elendrial.graphicsTool.helpers.LineHelper;
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class FakeLightbendingScene extends Scene{
 	
@@ -19,7 +20,7 @@ public class FakeLightbendingScene extends Scene{
 		// Generate a load of polygons, give them all an amount to bend lines
 		HashMap<Polygon, Integer> polyMap = new HashMap<>();
 		
-		int num = 6;
+		int num = 8;
 		for(int i = 0; i < num; i++) {
 			Polygon p = GenerationHelper.getRandomRegularPolygon(3, 10, 200, 400, -200, width + 200, 00, height + 00);
 			objects.add(p);
@@ -46,7 +47,7 @@ public class FakeLightbendingScene extends Scene{
 		// Create a new line
 		// Repeat until no new lines
 		
-		int maxIterations = 200;
+		int maxIterations = 500;
 		while(newLines.size() > 0 && maxIterations-- > 0) {
 			objects.addAll(newLines);
 			toLoopOver.clear();

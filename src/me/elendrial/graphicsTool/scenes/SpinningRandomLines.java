@@ -3,8 +3,8 @@ package me.elendrial.graphicsTool.scenes;
 import java.util.ArrayList;
 import java.util.Random;
 
-import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.objects.Line;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class SpinningRandomLines extends Scene {
 

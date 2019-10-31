@@ -2,10 +2,10 @@ package me.elendrial.graphicsTool.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import me.elendrial.graphicsTool.Vector;
 
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 import me.elendrial.graphicsTool.interfaces.PhysicsObject;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class PhysicsWrapper<T extends PhysicsObject> implements GraphicsObject {
 	

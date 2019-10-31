@@ -1,6 +1,6 @@
 package me.elendrial.graphicsTool.interfaces;
 
-import me.elendrial.graphicsTool.Vector;
+import me.elendrial.graphicsTool.types.Vector;
 
 public interface PhysicsObject extends GraphicsObject{
 

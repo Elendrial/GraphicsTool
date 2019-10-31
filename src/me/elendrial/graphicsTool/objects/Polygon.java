@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import me.elendrial.graphicsTool.Settings;
-import me.elendrial.graphicsTool.Vector;
+
 import java.util.ArrayList;
 
 import me.elendrial.graphicsTool.helpers.PolygonHelper;
 import me.elendrial.graphicsTool.interfaces.PhysicsObject;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class Polygon implements PhysicsObject{
 	

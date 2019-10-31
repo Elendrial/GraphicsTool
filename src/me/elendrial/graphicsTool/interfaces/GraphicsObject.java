@@ -3,7 +3,7 @@ package me.elendrial.graphicsTool.interfaces;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import me.elendrial.graphicsTool.Vector;
+import me.elendrial.graphicsTool.types.Vector;
 
 public interface GraphicsObject {
 	

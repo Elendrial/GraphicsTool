@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import me.elendrial.graphicsTool.Settings;
-import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class ConnectionMap implements GraphicsObject {
 	

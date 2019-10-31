@@ -1,4 +1,4 @@
-package me.elendrial.graphicsTool;
+package me.elendrial.graphicsTool.types;
 
 import java.awt.Rectangle;
 import java.util.Objects;

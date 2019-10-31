@@ -2,11 +2,11 @@ package me.elendrial.graphicsTool.helpers;
 
 import java.util.ArrayList;
 
-import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 import me.elendrial.graphicsTool.objects.ConnectionMap;
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class SceneHelper {
 

@@ -4,10 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import me.elendrial.graphicsTool.Settings;
-import me.elendrial.graphicsTool.Vector;
-
 import me.elendrial.graphicsTool.helpers.LineHelper;
 import me.elendrial.graphicsTool.interfaces.PhysicsObject;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class Line implements PhysicsObject{
 	

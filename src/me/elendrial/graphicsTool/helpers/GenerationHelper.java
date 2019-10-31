@@ -4,8 +4,8 @@ package me.elendrial.graphicsTool.helpers;
 import java.util.ArrayList;
 import java.util.Random;
 
-import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class GenerationHelper {
 

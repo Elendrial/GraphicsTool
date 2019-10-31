@@ -1,13 +1,12 @@
 package me.elendrial.graphicsTool.helpers;
 
-import me.elendrial.graphicsTool.Vector;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class PolygonHelper {
 

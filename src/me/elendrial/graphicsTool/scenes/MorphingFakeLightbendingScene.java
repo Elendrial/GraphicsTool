@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import me.elendrial.graphicsTool.Vector;
 import me.elendrial.graphicsTool.helpers.ColorHelper;
 import me.elendrial.graphicsTool.helpers.GenerationHelper;
 import me.elendrial.graphicsTool.helpers.LineHelper;
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class MorphingFakeLightbendingScene extends Scene {
 

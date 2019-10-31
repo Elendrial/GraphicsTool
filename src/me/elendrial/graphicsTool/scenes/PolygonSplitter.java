@@ -1,7 +1,6 @@
 package me.elendrial.graphicsTool.scenes;
 
 import java.awt.Graphics;
-import me.elendrial.graphicsTool.Vector;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,6 +9,7 @@ import me.elendrial.graphicsTool.helpers.PolygonHelper;
 import me.elendrial.graphicsTool.interfaces.GraphicsObject;
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class PolygonSplitter extends Scene{
 

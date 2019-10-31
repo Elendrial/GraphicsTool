@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import me.elendrial.graphicsTool.Vector;
 
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
+import me.elendrial.graphicsTool.types.Vector;
 
 public class LineHelper {
 	// TODO: Change all code in here to use Radians rather than Degrees. Shouldn't be too hard.
