@@ -1,9 +1,11 @@
 package me.elendrial.graphicsTool.helpers;
 
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
+import me.elendrial.graphicsTool.objects.PixelMap;
 import me.elendrial.graphicsTool.objects.Polygon;
 import me.elendrial.graphicsTool.types.Vector;
 
@@ -231,6 +233,39 @@ public class GenerationHelper {
 		smudge.add(p);
 		
 		return smudge;
+	}
+	
+	public static PixelMap getPerlinNoiseMap(Vector pos, Vector dim) {
+		return getPerlinNoiseMap(pos, dim, new float[] {4f,8f,16f,32f,64f,128f}, new float[] {128f,64f,32f,16f,8f,4f}, 200);
+	}
+	
+	public static PixelMap getPerlinNoiseMap(Vector pos, Vector dim, float[] frequencies, float[] amplitudes, float scale) {
+		if(frequencies.length != amplitudes.length) throw new RuntimeException("Scales.length must equal amplitutes.length");
+		
+		PixelMap pm = new PixelMap(dim);
+		Random rand = new Random();
+		int z = 0; //rand.nextInt(10000);
+		
+		for(int i = 0; i < dim.x; i++) {
+			for(int j = 0; j < dim.y; j++) {
+				
+				double b = 0;
+				double max = 0;
+				
+				for(int w = 0; w < frequencies.length; w++) {
+					b += MathsHelper.perlinNoise(i/scale * frequencies[w], j/scale * frequencies[w], z) * amplitudes[w];
+					max += amplitudes[w];
+				}
+				
+				b += 0.867d * max; // near sqrt(3)/2
+				b /= (0.867d * 2d * max);
+				b = MathsHelper.clamp(b,0d,1d);
+				
+				pm.setPixel(i, j, Color.getHSBColor(0f,0f, (float) b));
+			}
+		}
+		
+		return pm;
 	}
 	
 }
