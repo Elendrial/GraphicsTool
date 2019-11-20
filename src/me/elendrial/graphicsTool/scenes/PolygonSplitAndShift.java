@@ -50,7 +50,7 @@ public class PolygonSplitAndShift extends PolygonSplitter{
 	}
 	
 	public void movePolys(Polygon p, Polygon q, Line from, int degrees, double scale) {
-		Vector toMove = from.a.translate(from.b.negated()).getUnitVector().scale(scale).rotateDeg(degrees);
+		Vector toMove = from.getA().translate(from.getB().negated()).getUnitVector().scale(scale).rotateDeg(degrees);
 		q.translate(toMove);
 		p.translate(toMove.negated());
 	}

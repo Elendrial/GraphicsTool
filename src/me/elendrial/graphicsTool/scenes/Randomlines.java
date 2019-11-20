@@ -26,14 +26,14 @@ public class Randomlines extends Scene{
 		Line nl;
 		do {
 			Line seedLine = this.getRandomTInScene(Line.class);
-			double sl = seedLine.a.distance(seedLine.b);
+			double sl = seedLine.getA().distance(seedLine.getB());
 			
 			nl = new Line(seedLine.getCentre(), seedLine.getCentre());
 			double g = LineHelper.gradientOfNormal(seedLine); // dy/dx = g, dx+dy = 100, dy = 100-dx, dy = g*dx, 100-dx=g*dx, 100=g*dx+dx, 100 = dx(g+1), 100/(g+1)=dx. Switching should change between normal line
 			double len = rand.nextInt((int) sl)/2;
 			len = len > 5 ? len : 5;
-			nl.a.translate(len-(len/(g+1)), len/(g+1));
-			nl.b.translate(-len+(len/(g+1)), -len/(g+1));
+			nl.getA().translate(len-(len/(g+1)), len/(g+1));
+			nl.getB().translate(-len+(len/(g+1)), -len/(g+1));
 			
 			double mov = rand.nextInt((int) sl) - sl/2d;
 			nl.translate(mov/(g+1), mov-(mov/(g+1)));
@@ -48,12 +48,12 @@ public class Randomlines extends Scene{
 			for(Line l : ints.keySet()) {
 				if(l.intersects(nl)) {
 					Vector v = LineHelper.getIntersection(nl, l);
-					if(v.distance(nl.a) < v.distance(nl.b)) {
-						nl.a = v.copy();
+					if(v.distance(nl.getA()) < v.distance(nl.getB())) {
+						nl.setA(v.copy());
 						nl.extendFromB(-4);
 					}
 					else {
-						nl.b = v.copy();
+						nl.setB(v.copy());
 						nl.extendFromA(-4);
 					}
 				}
@@ -61,7 +61,7 @@ public class Randomlines extends Scene{
 		
 		} while(nl.getLength() <= 10);
 
-		if(nl.a.isValid() && nl.b.isValid()) {
+		if(nl.getA().isValid() && nl.getB().isValid()) {
 			lines.add(nl);
 			objects.add(nl);
 		}

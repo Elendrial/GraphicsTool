@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import me.elendrial.graphicsTool.objects.Line;
 import me.elendrial.graphicsTool.objects.Polygon;
@@ -12,6 +13,9 @@ import me.elendrial.graphicsTool.types.Vector;
 
 public class LineHelper {
 	// TODO: Change all code in here to use Radians rather than Degrees. Shouldn't be too hard.
+	// NB: Almost all code here assumes use of Line, NOT ArcLine, stuff may break if used for ArcLine.
+	
+	
 	
 	// Intersection code nabbed from
 	// https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
@@ -45,6 +49,8 @@ public class LineHelper {
 	// The main function that returns true if line segment 'p1q1'
 	// and 'p2q2' intersect.
 	public static boolean doIntersect(Vector p1, Vector q1, Vector p2, Vector q2) {
+		// TODO: Intersections for ArcLine.
+		
 		// Find the four orientations needed for general and
 		// special cases
 		int o1 = orientation(p1, q1, p2);
@@ -83,11 +89,11 @@ public class LineHelper {
 	}
 	
 	public static boolean doIntersect(Line a, Line b){
-		return doIntersect(a.a, a.b, b.a, b.b);
+		return doIntersect(a.getA(), a.getB(), b.getA(), b.getB());
 	}
 	
 	public static boolean doIntersect(Line a, Vector c, Vector d) {
-		return doIntersect(a.a, a.b, c, d);
+		return doIntersect(a.getA(), a.getB(), c, d);
 	}
 	
 	public static boolean doIntersect(Line l, Polygon p) {
@@ -118,7 +124,7 @@ public class LineHelper {
 	}
 	
 	public static Vector getIntersection(Line a, Line b){
-		return getIntersection(a.a, a.b, b.a, b.b);
+		return getIntersection(a.getA(), a.getB(), b.getA(), b.getB());
 	}
 	
 	public static ArrayList<Vector> getIntersections(Line a, Line... lines){
@@ -168,6 +174,16 @@ public class LineHelper {
 		return vecs;
 	}
 	
+	public static boolean anyIntersections(List<Line> l1s, List<Line> l2s) {
+		for(Line l1 : l1s) {
+			for(Line l2 : l2s) {
+				if(doIntersect(l1,l2)) return true;
+			}
+		}
+		
+		
+		return false;
+	}
 	
 	public static Vector getOppositeEnd(Vector start, double angle, double length) {
 		return new Vector(Math.sin(angle * Math.PI /180D) * length + start.x, Math.cos(angle * Math.PI /180D) * length + start.y);
@@ -191,7 +207,7 @@ public class LineHelper {
 	}
 	
 	public static double angleBetween(Line a, Line b) {
-		return angleBetween(a.a, a.b, b.a, b.b);
+		return angleBetween(a.getA(), a.getB(), b.getA(), b.getB());
 	}
 	
 	
@@ -200,7 +216,7 @@ public class LineHelper {
 	}
 	
 	public static double gradientOfNormal(Line l) {
-		return (l.a.y - l.b.y)/(l.b.x - l.a.x);
+		return (l.getA().y - l.getB().y)/(l.getB().x - l.getA().x);
 	}
 	
 	
@@ -220,24 +236,24 @@ public class LineHelper {
 	}
 	
 	public static double angleOfLine(Line l) {
-		return angleOfLine(l.a, l.b);
+		return angleOfLine(l.getA(), l.getB());
 	}
 	
 	
 	public static double xAt(Line l, double y) {
 		// TODO: Vector check thisw
-		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
-		return (y / m) + l.a.x - (l.a.y / m);
+		double m = (l.getA().y - l.getB().y)/(l.getA().x - l.getB().x);
+		return (y / m) + l.getA().x - (l.getA().y / m);
 	}
 	
 	public static double yAt(Line l, double x) {
-		double m = (l.a.y - l.b.y)/(l.a.x - l.b.x);
-		return m * x + (l.a.y - m * l.a.x);
+		double m = (l.getA().y - l.getB().y)/(l.getA().x - l.getB().x);
+		return m * x + (l.getA().y - m * l.getA().x);
 	}
 	
 	public static ArrayList<Vector> orderVectorsAlongLine(ArrayList<Vector> vecs, Line l){
 		vecs.sort((v1,v2) ->{
-			return v1.distance(l.a) > v2.distance(l.a) ? 1 : -1;
+			return v1.distance(l.getA()) > v2.distance(l.getA()) ? 1 : -1;
 		});
 		
 		return vecs;
@@ -278,19 +294,19 @@ public class LineHelper {
 	}
 	
 	public static boolean isPointOnBoundedLine(Vector v, Line l) {
-		return isPointOnLine(v,l) && v.isWithin(l.a, l.b);
+		return isPointOnLine(v,l) && v.isWithin(l.getA(), l.getB());
 	}
 	
 	public static double sideOfLine(Line l, Vector v) {
-		return (v.x - l.a.x) * (l.b.y - l.a.y) - (v.y - l.a.y) * (l.b.x - l.a.x);
+		return (v.x - l.getA().x) * (l.getB().y - l.getA().y) - (v.y - l.getA().y) * (l.getB().x - l.getA().x);
 	}
 	
 	public static Vector mirrorPoint(Line l, Vector v) {
 		// Process explained by https://stackoverflow.com/a/8954454/3444121
 		// TODO: Simplify by using Vectors;
-		double A = l.b.y - l.a.y;
-		double B = -(l.b.x-l.a.x);
-		double C = -A * l.a.x - B * l.a.y;
+		double A = l.getB().y - l.getA().y;
+		double B = -(l.getB().x-l.getA().x);
+		double C = -A * l.getA().x - B * l.getA().y;
 		
 		double M = Math.sqrt(A * A + B * B);
 		
@@ -311,11 +327,11 @@ public class LineHelper {
 	public static ArrayList<Line> mirrorLine(Line lgo, Line l, boolean cull, boolean keepColour) {
 		ArrayList<Line> mirroredScene = new ArrayList<>();
 		Vector a, b;
-		a = !cull || LineHelper.sideOfLine(l, lgo.a) < 0 ? lgo.a.copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;
-		b = !cull || LineHelper.sideOfLine(l, lgo.b) < 0 ? lgo.b.copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;
+		a = !cull || LineHelper.sideOfLine(l, lgo.getA()) < 0 ? lgo.getA().copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;
+		b = !cull || LineHelper.sideOfLine(l, lgo.getB()) < 0 ? lgo.getB().copy() : l.intersects(lgo) ? l.intersectionOf(lgo) : null;
 		
-		if(cull && a!= null && !lgo.a.equals(a)) lgo.a.setLocation(a);
-		if(cull && b!= null && !lgo.b.equals(b)) lgo.b.setLocation(b);
+		if(cull && a!= null && !lgo.getA().equals(a)) lgo.getA().setLocation(a);
+		if(cull && b!= null && !lgo.getB().equals(b)) lgo.getB().setLocation(b);
 		
 		if(a != null && b != null) {
 			mirroredScene.add(new Line(mirrorPoint(l, a), mirrorPoint(l, b)));

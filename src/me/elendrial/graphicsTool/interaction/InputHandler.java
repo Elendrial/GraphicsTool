@@ -31,7 +31,7 @@ public class InputHandler implements KeyListener{
 			break;
 		}
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		switch(arg0.getKeyCode()) {
@@ -42,6 +42,9 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_L:
 			Settings.renderLines = !Settings.renderLines;
 			break;
+		case KeyEvent.VK_M:
+			Settings.renderMarkers = !Settings.renderMarkers;
+			break;
 		case KeyEvent.VK_D:
 			Settings.debug = !Settings.debug;
 			break;
@@ -51,6 +54,7 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_C:
 			Settings.renderConnectionMapNodes = !Settings.renderConnectionMapNodes;
 			break;
+			
 			
 			// Updates
 		case KeyEvent.VK_EQUALS:
@@ -63,6 +67,9 @@ public class InputHandler implements KeyListener{
 			break;
 		case KeyEvent.VK_UNDERSCORE:
 			Settings.updateDelay -= 10;
+			break;
+		case KeyEvent.VK_U:
+			Settings.updating = !Settings.updating;
 			break;
 			
 			// Misc

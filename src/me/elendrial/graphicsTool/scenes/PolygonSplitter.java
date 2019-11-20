@@ -63,7 +63,7 @@ public class PolygonSplitter extends Scene{
 		double length = split.getLength() + bias;  // the "+ n" biases larger polygons being successfully split
 		
 		split.translate(new Vector(rand.nextDouble() * length - length/2, rand.nextDouble() * (length) - length/2));
-		split.rotate(split.a, (rand.nextDouble() - 0.5D) * Math.PI);
+		split.rotate(split.getA(), (rand.nextDouble() - 0.5D) * Math.PI);
 		split.extendFromMidpoint(100);
 		return split;
 	}

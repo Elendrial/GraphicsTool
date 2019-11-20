@@ -24,3 +24,4 @@ hs_err_pid*
 .settings/org.eclipse.jdt.core.prefs
 .project
 .classpath
+src/me/elendrial/graphicsTool/scenes/TestingScene.java

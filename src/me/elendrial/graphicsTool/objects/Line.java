@@ -10,8 +10,8 @@ import me.elendrial.graphicsTool.types.Vector;
 
 public class Line implements PhysicsObject{
 	
-	public Vector a;
-	public Vector b;
+	protected Vector a;
+	protected Vector b;
 	public Color c = Color.WHITE;
 	
 	public Line() {super();}
@@ -26,6 +26,22 @@ public class Line implements PhysicsObject{
 		this(new Vector(x1, y1), new Vector(x2, y2));
 	}
 	
+	public Vector getA() {
+		return a;
+	}
+
+	public void setA(Vector a) {
+		this.a = a.copy();
+	}
+
+	public Vector getB() {
+		return b;
+	}
+
+	public void setB(Vector b) {
+		this.b = b.copy();
+	}
+
 	public double getLength() {
 		return a.distance(b);
 	}

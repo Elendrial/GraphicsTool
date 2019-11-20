@@ -54,4 +54,13 @@ abstract public class Scene {
 		return ps.get(rand.nextInt(ps.size()));
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <T extends GraphicsObject> ArrayList<T> getAllTInScene(Class<T> clazz) {
+		ArrayList<T> ps = new ArrayList<>();
+		
+		for(GraphicsObject o : objects) if(clazz.isInstance(o)) ps.add((T) o);
+		
+		return ps;
+	}
+	
 }

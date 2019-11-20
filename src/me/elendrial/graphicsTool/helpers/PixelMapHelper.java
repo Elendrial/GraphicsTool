@@ -63,7 +63,7 @@ public class PixelMapHelper {
 	
 	public static void addLine(PixelMap pm, Line l) {
 		pm.pixelMap.getGraphics().setColor(l.c);
-		pm.pixelMap.getGraphics().drawLine(l.a.getIX(), l.a.getIY(), l.b.getIX(), l.b.getIY());
+		pm.pixelMap.getGraphics().drawLine(l.getA().getIX(), l.getA().getIY(), l.getB().getIX(), l.getB().getIY());
 	}
 	
 	public static PixelMap combinePixelMaps(PixelMap p, PixelMap q) {

@@ -93,7 +93,7 @@ public class Vector {
 	}
 	
 	public boolean isUnitVector() {
-		return distance(ORIGIN) == 1;
+		return distance(ORIGIN) == 1d;
 	}
 	
 	public Vector rotateRad(double radians, Vector v){
@@ -116,11 +116,41 @@ public class Vector {
 	}
 	
 	public double getAngleRad() {
-		return Math.atan(y/x);
+		return getAngleRad(ORIGIN);
+	}
+	
+	public double getAngleRad(Vector from) {
+		Vector v = copy().translate(from.negated());
+		// +ve, +ve
+		if(v.x >= 0 && v.y >= 0)
+			return Math.atan((y-from.y)/(x-from.x));
+		
+		// -ve, +ve
+		if(v.x < 0 && v.y > 0)
+			return Math.PI + Math.atan((y-from.y)/(x-from.x));
+		
+		// -ve, -ve
+		if(v.x < 0 && v.y < 0)
+			return Math.PI + Math.atan((y-from.y)/(x-from.x));
+		
+		// +ve, -ve
+		return 2 * Math.PI + Math.atan((y-from.y)/(x-from.x));
 	}
 	
 	public double getAngleDeg() {
 		return getAngleRad() * 180D / Math.PI;
+	}
+	
+	public double getAngleDeg(Vector centrePoint) {
+		return getAngleRad(centrePoint) * 180D / Math.PI;
+	}
+	
+	public double getRadBetween(Vector v, Vector from) {
+		return getAngleRad(from) - v.getAngleRad(from);
+	}
+	
+	public double getDegBetween(Vector v, Vector from) {
+		return getRadBetween(v, from) * 180D / Math.PI;
 	}
 	
 	/** Essentially a clone method.
@@ -136,6 +166,12 @@ public class Vector {
 	
 	public Vector negated() {
 		return new Vector(-x,-y);
+	}
+	
+	public Vector abs() {
+		x = Math.abs(x);
+		y = Math.abs(y);
+		return this;
 	}
 	
 	public static Rectangle convertToRectangle(Vector a, Vector b){

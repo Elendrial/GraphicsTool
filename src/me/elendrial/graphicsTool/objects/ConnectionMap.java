@@ -31,26 +31,26 @@ public class ConnectionMap implements GraphicsObject {
 	}
 	
 	public boolean addEdge(Line l) {
-		if(!nodes.contains(l.a) || !nodes.contains(l.b)) return false;
-		if(l.a != nodes.get(nodes.indexOf(l.a)) || l.b != nodes.get(nodes.indexOf(l.b))) return false;
+		if(!nodes.contains(l.getA()) || !nodes.contains(l.getB())) return false;
+		if(l.getA() != nodes.get(nodes.indexOf(l.getA())) || l.getB() != nodes.get(nodes.indexOf(l.getB()))) return false;
 		edges.add(l);
 		return true;
 	}
 	
 	/** If nodes aren't in the map they're added. If the nodes are identical to nodes already contained, then the edge is modified to use those instead. */
 	public void lenientAddEdge(Line l) {
-		if(!nodes.contains(l.a)) {
-			addNode(l.a);
+		if(!nodes.contains(l.getA())) {
+			addNode(l.getA());
 		}
-		else if(l.a != nodes.get(nodes.indexOf(l.a))) {
-			l.a = nodes.get(nodes.indexOf(l.a));
+		else if(l.getA() != nodes.get(nodes.indexOf(l.getA()))) {
+			l.setA(nodes.get(nodes.indexOf(l.getA())));
 		}
 		
-		if(!nodes.contains(l.b)) {
-			addNode(l.b);
+		if(!nodes.contains(l.getB())) {
+			addNode(l.getB());
 		}
-		else if(l.b != nodes.get(nodes.indexOf(l.b))) {
-			l.b = nodes.get(nodes.indexOf(l.b));
+		else if(l.getB() != nodes.get(nodes.indexOf(l.getB()))) {
+			l.setB(nodes.get(nodes.indexOf(l.getB())));
 		}
 		
 		if(!edges.contains(l))

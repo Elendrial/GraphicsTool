@@ -9,7 +9,7 @@ public class GraphicsTool {
 
 	private static Scene loadedScene;
 	public static boolean running = true;
-	public static Window w = new Window("Graphics Tool", 1000, 1000);
+	public static Window w = new Window("Graphics Tool", 1080, 1080);
 	
 	public static void main(String[] args) {
 		w.createDisplay();
@@ -43,7 +43,8 @@ public class GraphicsTool {
 			w.render();
 			wait(Settings.updateDelay);
 			try {
-				loadedScene.update();
+				if(Settings.updating)
+					loadedScene.update();
 			}
 			catch(Exception e) {
 				e.printStackTrace();

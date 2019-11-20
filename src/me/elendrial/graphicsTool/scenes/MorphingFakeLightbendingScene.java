@@ -149,13 +149,13 @@ public class MorphingFakeLightbendingScene extends Scene {
 				HashMap<Vector, Polygon> intersections = LineHelper.getIntersectionsWithPolygons(l, polyMap.keySet());
 				
 				Vector closest = intersections.keySet().stream().sorted((v1,v2) -> {
-					double v1dist = v1.distance(l.a);
-					double v2dist = v2.distance(l.a);
+					double v1dist = v1.distance(l.getA());
+					double v2dist = v2.distance(l.getA());
 					return (Double.isNaN(v1dist) ? -1 : (Double.isNaN(v2dist) ? 1 : (v1dist > v2dist ? 1 : (v1dist == v2dist ? 0 : -1)))); // TODO: make this not... this
 				}).findFirst().orElse(null);
 				
 				if(closest != null) {
-					l.b.setLocation(closest);
+					l.getB().setLocation(closest);
 					
 					double angle = LineHelper.angleOfLine(l) + polyMap.get(intersections.get(closest));
 					Line newLine = new Line(closest, closest.copy().translate(2000 * Math.cos(angle * Math.PI/180), 2000 * Math.sin((angle * Math.PI/180))));

@@ -89,20 +89,20 @@ public class WebScene extends Scene{
 				//					find two neighbouring intersections along L
 				intersections = LineHelper.orderVectorsAlongLine(unorderedIntersections, l);
 				index = rand.nextInt(intersections.size()-1);
-				l.a = (Vector) intersections.values().toArray()[index];
-				l.b = (Vector) intersections.values().toArray()[index+1];
-			}while(l.a.distance(l.b) < 5 && attempt++ < 100); // Gotta be far apart
+				l.setA((Vector) intersections.values().toArray()[index]);
+				l.setB((Vector) intersections.values().toArray()[index+1]);
+			}while(l.getA().distance(l.getB()) < 5 && attempt++ < 100); // Gotta be far apart
 			
 			//					place node at each intersection, create a line between them and insert them into the lines they intersect
-			map.addNodes(l.a, l.b);
+			map.addNodes(l.getA(), l.getB());
 			
 			Line la = (Line) intersections.keySet().toArray()[index];
-			map.addEdge(l.a, la.b);
-			la.b = l.a;
+			map.addEdge(l.getA(), la.getB());
+			la.setB(l.getA());
 			
 			Line lb = (Line) intersections.keySet().toArray()[index+1];
-			map.addEdge(l.b, lb.b);
-			lb.b = l.b;
+			map.addEdge(l.getB(), lb.getB());
+			lb.setB(l.getB());
 			
 			map.lenientAddEdge(l);
 		}
