@@ -9,9 +9,10 @@ public class GraphicsTool {
 
 	private static Scene loadedScene;
 	public static boolean running = true;
-	public static Window w = new Window("Graphics Tool", 1080, 1080);
+	public static Window w;
 	
 	public static void main(String[] args) {
+		w = new Window("Graphics Tool", 1080, 1080);
 		w.createDisplay();
 		w.start();
 		

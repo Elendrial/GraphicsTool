@@ -26,11 +26,12 @@ public class PixelMap implements PhysicsObject{
 	}
 	
 	public void setPixel(Vector p, Color c) {
-		pixelMap.setRGB(p.getIX(), p.getIY(), c.getRGB());
+		setPixel(p.getIX(), p.getIY(), c);
 	}
 	
 	public void setPixel(int x, int y, Color c) {
-		pixelMap.setRGB(x, y, c.getRGB());
+		if(x >= 0 && x < dimensions.x && y >= 0 && y < dimensions.y)
+			pixelMap.setRGB(x, y, c.getRGB());
 	}
 	
 	public void fillPixels(Vector p, Vector d, Color c) {

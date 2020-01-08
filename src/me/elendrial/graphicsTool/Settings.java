@@ -1,11 +1,6 @@
 package me.elendrial.graphicsTool;
 
-import me.elendrial.graphicsTool.scenes.JoinedLinesScene;
-import me.elendrial.graphicsTool.scenes.MoreLinesScene;
-import me.elendrial.graphicsTool.scenes.NoiseScene;
-import me.elendrial.graphicsTool.scenes.Scene;
-import me.elendrial.graphicsTool.scenes.SpinningRandomLines;
-import me.elendrial.graphicsTool.scenes.TestingScene;
+import me.elendrial.graphicsTool.scenes.*;
 
 public class Settings {
 	
