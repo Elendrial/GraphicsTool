@@ -5,7 +5,7 @@ import me.elendrial.graphicsTool.scenes.*;
 public class Settings {
 	
 	public static Scene startingScene = new MoreLinesScene();
-	public static int updateDelay = 100;
+	public static int updateDelay = 33;
 	public static boolean updating = true;
 
 	public static boolean debug = false;
