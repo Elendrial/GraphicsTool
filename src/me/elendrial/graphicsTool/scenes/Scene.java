@@ -31,8 +31,6 @@ abstract public class Scene {
 		objects.forEach(o -> o.render(g));
 	}
 	
-	
-	
 	public GraphicsObject getRandomObjectInScene() {
 		return objects.get(rand.nextInt(objects.size()));
 	}
@@ -62,5 +60,16 @@ abstract public class Scene {
 		
 		return ps;
 	}
+	
+	public void keypress1() {}
+	public void keypress2() {}
+	public void keypress3() {}
+	public void keypress4() {}
+	public void keypress5() {}
+	public void keypress6() {}
+	public void keypress7() {}
+	public void keypress8() {}
+	public void keypress9() {}
+	public void keypress0() {}
 	
 }

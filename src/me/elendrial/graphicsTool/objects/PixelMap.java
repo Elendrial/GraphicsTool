@@ -2,6 +2,7 @@ package me.elendrial.graphicsTool.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import me.elendrial.graphicsTool.types.Vector;
@@ -79,7 +80,11 @@ public class PixelMap implements PhysicsObject{
 		//								   maybe expand pixelmap and set certain pixels as empty and to be removed?
 	}
 	
-
+	public void clear() {
+		Graphics2D g = (Graphics2D) pixelMap.getGraphics();
+		g.setBackground(new Color(255, 255, 255, 0));
+        g.clearRect(0,0, dimensions.getIX(), dimensions.getIY());
+	}
 
 	@Override
 	public Vector getCentre() {
@@ -196,6 +201,5 @@ public class PixelMap implements PhysicsObject{
 
 	 * 
 	 */
-	public void ignoreme() {}
 	
 }

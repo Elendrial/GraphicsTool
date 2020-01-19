@@ -77,6 +77,37 @@ public class InputHandler implements KeyListener{
 			GraphicsTool.getScene().objects.clear();
 			GraphicsTool.getScene().load();
 			break;
+		
+		case KeyEvent.VK_1:
+			GraphicsTool.getScene().keypress1();
+			break;
+		case KeyEvent.VK_2:
+			GraphicsTool.getScene().keypress2();
+			break;
+		case KeyEvent.VK_3:
+			GraphicsTool.getScene().keypress3();
+			break;
+		case KeyEvent.VK_4:
+			GraphicsTool.getScene().keypress4();
+			break;
+		case KeyEvent.VK_5:
+			GraphicsTool.getScene().keypress5();
+			break;
+		case KeyEvent.VK_6:
+			GraphicsTool.getScene().keypress6();
+			break;
+		case KeyEvent.VK_7:
+			GraphicsTool.getScene().keypress7();
+			break;
+		case KeyEvent.VK_8:
+			GraphicsTool.getScene().keypress8();
+			break;
+		case KeyEvent.VK_9:
+			GraphicsTool.getScene().keypress9();
+			break;
+		case KeyEvent.VK_0:
+			GraphicsTool.getScene().keypress0();
+			break;
 		}
 	}
 
