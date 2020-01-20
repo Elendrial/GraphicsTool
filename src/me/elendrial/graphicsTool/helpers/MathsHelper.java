@@ -184,6 +184,8 @@ public class MathsHelper {
 	public static ArrayList<Double> range(double min, double max, double step){
 		ArrayList<Double> out = new ArrayList<>();
 		
+		if(step < 0) return out;
+		
 		for(double i = min; i <= max; i += step) {
 			out.add(i);
 		}

@@ -97,7 +97,7 @@ public class MorphingPolarGraphDrawing extends Scene{
 	}
 	
 	public void keypress5() {
-		step -= 0.002;
+		if(step > 0.002) step -= 0.002;
 	}
 	
 	public void keypress6() {
