@@ -27,15 +27,20 @@ public class Marker implements PhysicsObject {
 	}
 	
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, double s) {
 		if(!Settings.renderMarkers) return;
 		g.setColor(c);
+		position.scale(s);
+		int rtemp = radius;
+		radius *= s;
 		switch(markerType) {
 		case CIRCLE: g.drawArc(position.getIX()-radius, position.getIY()-radius, radius*2, radius*2, 0, 360); break;
 		case SQUARE: g.drawRect(position.getIX()-radius, position.getIY()-radius, radius*2, radius*2); break;
 		case CIRCLE_FILL: g.fillArc(position.getIX()-radius, position.getIY()-radius, radius*2, radius*2, 0, 360); break;
 		case SQUARE_FILL: g.fillRect(position.getIX()-radius, position.getIY()-radius, radius*2, radius*2); break;
 		}
+		position.scale(1d/s);
+		radius = rtemp;
 	}
 
 	@Override

@@ -106,9 +106,9 @@ public class Line implements PhysicsObject{
 	}
 	
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, double s) {
 		g.setColor(c);
-		if(Settings.renderLines) g.drawLine((int) a.x, (int) a.y, (int) b.x, (int) b.y);
+		if(Settings.renderLines) g.drawLine((int) (a.x*s), (int) (a.y*s), (int) (b.x*s), (int) (b.y*s));
 	}
 	
 	@Override

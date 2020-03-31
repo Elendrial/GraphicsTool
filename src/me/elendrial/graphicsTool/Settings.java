@@ -4,7 +4,7 @@ import me.elendrial.graphicsTool.scenes.*;
 
 public class Settings {
 	
-	public static Scene startingScene = new MoreLinesScene();
+	public static Scene startingScene = new OutliningCircle();
 	public static int updateDelay = 33;
 	public static boolean updating = true;
 
@@ -17,5 +17,8 @@ public class Settings {
 	public static boolean renderMarkers = true;
 	public static boolean renderLines = true;
 	public static boolean renderConnectionMapNodes = true;
+	
+	public static String defaultImageSavePath = "C:\\Users\\Hii\\Pictures\\programming screencaps\\";
+	public static String defaultImageSaveType = "png";
 	
 }

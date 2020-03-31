@@ -94,7 +94,7 @@ public class PixelMap implements PhysicsObject{
 	public void setColor(Color c) {}
 	
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, double s) { // TODO: Figure out how to scale, maybe just leave them incompatible?
 		g.drawImage(pixelMap, position.getIX(), position.getIY(), null);
 	}
 

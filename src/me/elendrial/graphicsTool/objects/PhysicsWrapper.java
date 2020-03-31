@@ -29,8 +29,8 @@ public class PhysicsWrapper<T extends PhysicsObject> implements GraphicsObject {
 	}
 	
 	@Override
-	public void render(Graphics g) {
-		obj.render(g);
+	public void render(Graphics g, double s) {
+		obj.render(g, s);
 	}
 
 	public void translate(Vector amount) {}

@@ -44,17 +44,17 @@ public class Polygon implements PhysicsObject{
 	}
 	
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics g, double s) {
 		g.setColor(c);
 		
 		if(Settings.renderPolygonLines) {
 			for(int i = 0; i < vertices.size()-1; i++) {
-				g.drawLine((int) vertices.get(i).x, (int) vertices.get(i).y, (int) vertices.get(i+1).x, (int) vertices.get(i+1).y);
+				g.drawLine((int) (vertices.get(i).x * s), (int) (vertices.get(i).y * s), (int) (vertices.get(i+1).x * s), (int) (vertices.get(i+1).y * s));
 			}
-			if(vertices.size() > 0) g.drawLine((int) vertices.get(vertices.size()-1).x, (int) vertices.get(vertices.size()-1).y, (int) vertices.get(0).x, (int) vertices.get(0).y);
+			if(vertices.size() > 0) g.drawLine((int) (vertices.get(vertices.size()-1).x * s), (int) (vertices.get(vertices.size()-1).y * s), (int) (vertices.get(0).x * s), (int) (vertices.get(0).y * s));
 		}
 		
-		if(Settings.renderPolygonCenters) g.drawRect((int) position.x-1, (int) position.y-1, 2,2);
+		if(Settings.renderPolygonCenters) g.drawRect((int) (position.x*s)-1, (int) (position.y*s)-1, 2,2);
 	}
 	
 	public Polygon scale(double d) {

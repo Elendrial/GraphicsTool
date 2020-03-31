@@ -1,5 +1,7 @@
 package me.elendrial.graphicsTool.graphics;
 
+import me.elendrial.graphicsTool.types.Vector;
+
 public class Camera {
 	
 	private int x = 0, y = 0;
@@ -23,6 +25,10 @@ public class Camera {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public Vector getLocationAsVector() {
+		return new Vector(x,y);
 	}
 	
 }

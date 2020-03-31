@@ -103,9 +103,9 @@ public class ConnectionMap implements GraphicsObject {
 	}
 	
 	@Override
-	public void render(Graphics g) {
-		for(Line l : edges) l.render(g);
-		if(Settings.renderConnectionMapNodes) for(Vector v : nodes) g.drawRect(v.getIX()-1, v.getIY()-1, 2, 2);
+	public void render(Graphics g, double s) {
+		for(Line l : edges) l.render(g, s);
+		if(Settings.renderConnectionMapNodes) for(Vector v : nodes) g.drawRect((int) (v.getX()*s)-1, (int) (v.getY()*s)-1, 2, 2);
 	}
 
 	@Override

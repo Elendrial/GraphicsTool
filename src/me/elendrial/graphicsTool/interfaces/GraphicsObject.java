@@ -7,9 +7,10 @@ import me.elendrial.graphicsTool.types.Vector;
 
 public interface GraphicsObject {
 	
-	public void render(Graphics g);
+	public default void render(Graphics g) {render(g, 1);}
+	public void render(Graphics g, double scale);
 	public default void update() {}
-	public void setColor(Color c);
+	public void setColor(Color c); // TODO: maybe change this to return a GraphicsObject
 	public Vector getCentre();
 	
 }

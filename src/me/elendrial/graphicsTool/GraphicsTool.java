@@ -1,6 +1,7 @@
 package me.elendrial.graphicsTool;
 
 import me.elendrial.graphicsTool.graphics.Window;
+import me.elendrial.graphicsTool.helpers.MathsHelper;
 import me.elendrial.graphicsTool.scenes.Scene;
 
 // NB: any angles are in radians here, as it makes it consistent with java's Math methods.
