@@ -101,6 +101,52 @@ public class LineHelper {
 	}
 	
 	
+	public static boolean intersectsCircle(Line l, Vector center, double radius) {
+		if(l.getA().x == l.getB().x) return (center.x - radius <= l.getA().x && center.x + radius >= l.getA().x);
+		// y = mx + c -> ax + by + c = 0
+		// c = c, a = m, b = 1
+		// a * xc + b * xc + c / sqrt(a^2 + b^2)  ->  m * xc + xc + c / sqrt(m^2 + 1)   ???
+		double a = (l.getA().y - l.getB().y) / (l.getA().x - l.getB().x);
+		double b = -1;
+		double c = -l.getA().x * a + l.getA().y; // y = mx +c, c = y-mx
+		
+		double dist = Math.abs(a * center.x + b * center.y + c) / Math.sqrt(a * a + b * b);
+		return dist < radius;
+	}
+	
+	public static Vector getIntersectionWithCircle(Line l, Vector center, double radius) {
+		// adapted from https://stackoverflow.com/a/23017208 because I'm lazy
+		double dx, dy, A, B, C, det, t;
+		
+		dx = l.getB().x - l.getA().x;
+		dy = l.getB().y - l.getA().y;
+		
+		A = dx * dx + dy * dy;
+		B = 2 * (dx * (l.getA().x - center.x) + dy * (l.getA().y - center.y));
+		C = (l.getA().x - center.x) * (l.getA().x - center.x) + (l.getA().y - center.y) * (l.getA().y - center.y) - radius * radius;
+		
+		det = B * B - 4 * A * C;
+		if ((A <= 0.0000001) || (det < 0)){
+			return null;
+		}
+		else if (det == 0)
+		{
+		    // One solution.
+		    t = -B / (2 * A);
+		    return new Vector(l.getA().x + t * dx, l.getA().y + t * dy);
+		}
+		else
+		{
+		    // Two solutions.
+		    t = (float)((-B + Math.sqrt(det)) / (2 * A));
+		    Vector inter1 = new Vector(l.getA().x + t * dx, l.getA().y + t * dy);
+		    t = (float)((-B - Math.sqrt(det)) / (2 * A));
+		    Vector inter2 = new Vector(l.getA().x + t * dx, l.getA().y + t * dy);
+		    return l.getA().distance(inter1) < l.getA().distance(inter2) ? inter1 : inter2;
+		}
+	}
+	
+	
 	public static Vector getIntersection(Vector p1, Vector p2, Vector q1, Vector q2) {
 		double pgrad = (p1.getY()-p2.getY())/(p1.getX()-p2.getX());
 		double qgrad = (q1.getY()-q2.getY())/(q1.getX()-q2.getX());
@@ -338,6 +384,22 @@ public class LineHelper {
 			mirroredScene.add(new Line(a, b));
 		}
 		return mirroredScene;
+	}
+	
+	public static double minDistanceFromPoint(Line l, Vector p) {
+		// Adapted from https://stackoverflow.com/a/30567488 because I'm lazy.
+		
+		double A = p.x - l.getA().x; // position of point rel one end of line
+		double B = p.y - l.getA().y;
+		double C = l.getB().x - l.getA().x; // vector along line
+		double D = l.getB().y - l.getA().y;
+		double E = -D; // orthogonal vector
+		double F = C;
+
+		double dot = A * E + B * F;
+		double len_sq = E * E + F * F;
+
+		return Math.abs(dot) / Math.sqrt(len_sq);
 	}
 	
 }

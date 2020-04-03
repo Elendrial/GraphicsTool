@@ -52,6 +52,14 @@ public class MathsHelper {
 	};
 	static { for (int i=0; i < 256 ; i++) p[256+i] = p[i] = permutation[i]; }
 
+	public static double normalisedPerlinNoise(double x, double y, double z) { // I think this is right?
+		double b = perlinNoise(x, y, z);
+		b += 0.866d; // near sqrt(3)/2
+		b /= (0.866 *2d);
+		b = MathsHelper.clamp(b,0d,1d);
+		return b;
+	}
+	
 	public static double clamp(double a, double min, double max) {
 		return a > max ? max : a < min ? min : a;
 	}
