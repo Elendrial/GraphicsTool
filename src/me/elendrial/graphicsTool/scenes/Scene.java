@@ -79,7 +79,7 @@ abstract public class Scene {
 	
 	public void saveAsImage(String path, String filename, String type, Vector cameraPosition, int width, int height, double scale, Color background) {
 		try {
-			System.out.println("Saving image at " + path + filename + "." + type + " at zoom scale of " + scale + " on a " + background + " background.");
+			System.out.println("Saving image at " + path + filename + "." + type + " at zoom scale of " + scale + " on a " + background + " background. " + objects.size() + " objects.");
 			BufferedImage bi = new BufferedImage((int) (width * scale), (int) (height * scale), BufferedImage.TYPE_INT_ARGB);
 			
 			Graphics g = bi.getGraphics();
@@ -106,6 +106,8 @@ abstract public class Scene {
 	public void keypress7() {}
 	public void keypress8() {}
 	public void keypress9() {}
+	
+	boolean highResScrn = true;
 	public void keypress0() {
 		// 0 Defaults as save
 		int fn = -1;
@@ -117,7 +119,7 @@ abstract public class Scene {
 		} while (exists);
 		
 		saveAsImage(fn + "", 1);
-		saveAsImage(fn + "_HighRes", 4);
+		if(highResScrn) saveAsImage(fn + "_HighRes", 8);
 	}
 	
 }

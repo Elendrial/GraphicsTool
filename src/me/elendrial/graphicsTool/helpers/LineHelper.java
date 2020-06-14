@@ -115,6 +115,10 @@ public class LineHelper {
 	}
 	
 	public static Vector getIntersectionWithCircle(Line l, Vector center, double radius) {
+		return getIntersectionWithCircle(l, center, radius, true);
+	}
+	
+	public static Vector getIntersectionWithCircle(Line l, Vector center, double radius, boolean close) {
 		// adapted from https://stackoverflow.com/a/23017208 because I'm lazy
 		double dx, dy, A, B, C, det, t;
 		
@@ -142,7 +146,7 @@ public class LineHelper {
 		    Vector inter1 = new Vector(l.getA().x + t * dx, l.getA().y + t * dy);
 		    t = (float)((-B - Math.sqrt(det)) / (2 * A));
 		    Vector inter2 = new Vector(l.getA().x + t * dx, l.getA().y + t * dy);
-		    return l.getA().distance(inter1) < l.getA().distance(inter2) ? inter1 : inter2;
+		    return l.getA().distance(inter1) < l.getA().distance(inter2) ? (close ? inter1 : inter2) : (close ? inter2 : inter1);
 		}
 	}
 	

@@ -80,6 +80,14 @@ public class Vector {
 		return Math.sqrt(Math.pow(vx- x, 2) + Math.pow(vy - y, 2));
 	}
 	
+	public double distanceSqrd(Vector v) {
+		return Math.pow(v.x- x, 2) + Math.pow(v.y - y, 2);
+	}
+	
+	public double distanceSqrd(double vx, double vy) {
+		return Math.pow(vx- x, 2) + Math.pow(vy - y, 2);
+	}
+	
 	public Vector getUnitVector() {
 		double dist = distance(ORIGIN);
 		return new Vector(x/dist, y/dist);
@@ -192,6 +200,26 @@ public class Vector {
 	public Vector scale(double dx, double dy) {
 		x *= dx;
 		y *= dy;
+		return this;
+	}
+	
+	public Vector scaled(double d) {
+		return new Vector(x*d, y*d);
+	}
+	
+	public Vector scaled(double dx, double dy) {
+		return new Vector(x*dx, y*dy);
+	}
+	
+	public Vector floor() {
+		x = Math.floor(x);
+		y = Math.floor(y);
+		return this;
+	}
+	
+	public Vector ceil() {
+		x = Math.ceil(x);
+		y = Math.ceil(y);
 		return this;
 	}
 	
